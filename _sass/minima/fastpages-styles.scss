@@ -22,6 +22,7 @@ img.emoji{
 }
 
 .page-content {
+        background-color: #292a2d;
         -webkit-font-smoothing: antialiased !important;
         text-rendering: optimizeLegibility !important;
         font-family: "Segoe UI", SegoeUI, Roboto, "Segoe WP", "Helvetica Neue", "Helvetica", "Tahoma", "Arial", sans-serif !important;
@@ -30,7 +31,7 @@ img.emoji{
 // make non-headings slightly lighter
 .post-content p, .post-content li {
    font-size: 20px;
-   color: #515151;
+   color: #9f9fa9;
 }
 
 .post-link{
