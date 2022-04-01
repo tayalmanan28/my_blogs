@@ -429,6 +429,66 @@ pre code { font-size: 15px !important; }
 
 /*-----------------------------------*/
 /*----- ADD YOUR STYLES BELOW -------*/
+li .post-meta-description { color: #8db9b9; font-size: 15px; margin-top: .05rem !important; margin-bottom: .05rem !important; }
+
+.post-content a { color: #cb6b3f; }
+
+.post-content h1, h2, h3 { color: #a9a9b3; }
+
+.post-title { color: #a9a9b3; }
+
+h1, h2, h3 { color: #a9a9b3; }
+
+.social-media-list li a, .pagination li a { display: block; padding: 7.5px; border: 1px solid #292a2d; }
+
+.page-description { color: #8db9b9; }
+
+.page-content a { color: #cb6b3f; }
+
+.page-content li { color: #a9a9b3; }
+
+.katex .op-symbol.large-op { font-family: KaTeX_Size2; color: #a9a9b3; }
+
+.katex .vlist { color: #a9a9b3; display: table-cell; vertical-align: bottom; position: relative; }
+
+.site-footer { border-top: 1px solid #000000; color: #cb6b3f; padding: 30px 0; }
+
+.site-header { border-top: 5px solid #424242; border-bottom: 1px solid #000000; }
+
+.span a { color: #a9a9b3; }
+
+.post-link { font-weight: normal; color: #cb6b3f; }
+
+.page-meta a, a:visited { color: #cb6b3f; }
+
+.page-meta { color: #cb6b3f; }
+
+a { color: #cb6b3f; text-decoration: none; }
+
+a:hover { color: #cb6b3f; text-decoration: underline; }
+
+a:visited { color: #cb6b3f; }
+
+.u-email { color: #9f9fa9; }
+
+.site-footer { background-color: #292a2d; }
+
+.site-header { background-color: #292a2d; }
+
+.site-nav .page-link { color: #a9a9b3; }
+
+.site-title, .site-title:visited { color: #a9a9b3; }
+
+body { color: #9f9fa9; }
+
+.category-tags-link { color: #9f9fa9; }
+
+.social-media-list li a:hover, .pagination li a:hover { border-color: #343436; }
+
+.feed-subscribe a { color: #9f9fa9; text-decoration: none; }
+
+pre, code { font-family: "Menlo", "Inconsolata", "Consolas", "Roboto Mono", "Ubuntu Mono", "Liberation Mono", "Courier New", monospace; color: #a9a9b3; font-size: 0.9375em; border: 0px solid #e8e8e8; background-color: #323443; }
+
 .language-python + .language-plaintext { border-left: 1px solid grey; margin-left: 1rem !important; }
 
 [class^="language-"]:not(.language-plaintext) pre, [class^="language-"]:not(.language-plaintext) code { background-color: #323443 !important; color: #f8f8f2; }
@@ -483,5 +543,23 @@ pre code { font-size: 15px !important; }
 .highlight .gd { color: #ff5555; }
 
 p code { font-size: 19px; }
+
+.highlight .err, .highlight .g, .highlight .l, .highlight .n, .highlight .x, .highlight .ge, .highlight .gr, .highlight .gh, .highlight .gi, .highlight .gp, .highlight .gs, .highlight .gu, .highlight .gt, .highlight .ld, .highlight .no, .highlight .nd, .highlight .pi, .highlight .ni, .highlight .ne, .highlight .nn, .highlight .nx, .highlight .py, .highlight .w, .highlight .bp { color: #f8f8f2; background-color: #323443 !important; }
+
+.output_area pre { border-left: 0px solid grey; margin-left: 1rem !important; }
+
+.input_area pre { border-left: 0px solid lightcoral; }
+
+.highlight .k, .highlight .o, .highlight .cp, .highlight .kc, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .nt, .highlight .ow { color: #e98e27; }
+
+.highlight .p { font-weight: bold; color: #f8f8f2; }
+
+.highlight .hll, .highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .s1, .highlight .ss { color: #e98e27; }
+
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo, .highlight .il { color: #ecea5d; }
+
+.highlight .kd, .highlight .kt, .highlight .nb, .highlight .nl, .highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm { color: #8db9b9; }
+
+.highlight .c, .highlight .ch, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs { color: #81899e; }
 
 /*# sourceMappingURL=style.css.map */
