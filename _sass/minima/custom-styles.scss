@@ -7,6 +7,14 @@
 /*-----------------------------------*/
 /*----- ADD YOUR STYLES BELOW -------*/
 
+// colors
+// light-orange: #ffab33
+// darker-orange: #bf7a1b
+// Red: #ff9021
+// BG: #232427
+// Light-gray: #a9a9b3
+// Text: #9f9fa9
+
 li .post-meta-description {
     //color: #f49d62;
     color: #8db9b9; 
@@ -16,27 +24,36 @@ li .post-meta-description {
 }
 
 .post-content a{
-    color: #cb6b3f;
+    color: #ff9021;
   }
-
+  
   .post-content h1, h2, h3{
     color: #a9a9b3
   }
-
+  
   .post-title{
     color: #a9a9b3
   }
-
+  
   h1, h2, h3{
     color: #a9a9b3
-
+  
   }
 
+  .post-list li div.Box.box-shadow-medium.rounded-1.col-12{
+    background-color: #232427;
+    border-color: #232427;
+  }
+
+  .page-content {
+    text-align: justify;
+  }
+  
   .social-media-list li a, .pagination li a {
     display: block;
     padding: 7.5px;
-    border: 1px solid #292a2d;
-
+    border: 1px solid #232427;
+    
   }
 
 .page-description{
@@ -44,7 +61,7 @@ li .post-meta-description {
 }
 
 .page-content a{
-  color: #cb6b3f;
+  color: #ff9021;
 }
 
 .page-content li{
@@ -54,79 +71,97 @@ li .post-meta-description {
 
 .katex .op-symbol.large-op {
   font-family: KaTeX_Size2;
-  color: #a9a9b3
+  color: rgb(189, 196, 207)
 }
 
 .katex .vlist {
-  color: #a9a9b3;
+  color: rgb(189, 196, 207);
   display: table-cell;
   vertical-align: bottom;
   position: relative;
 }
 
+.katex .mathdefault {
+  color: rgb(189, 196, 207);
+  font-family: KaTeX_Math;
+  font-style: italic;
+}
 
+.katex * {
+  color: rgb(189, 196, 207);
+  -ms-high-contrast-adjust: none!important;
+}
+
+//.post-content b, strong {
+//  color: rgb(189, 196, 207);
+//  font-weight: 600;
+//}
+
+  
   .site-footer {
     border-top: 1px solid #000000;
-    color: #cb6b3f;
+    color: #ff9021;
     padding: 30px 0;
   }
-
+  
   .site-header {
     border-top: 5px solid #424242;
     border-bottom: 1px solid #000000;
   }
-
+  
   .span a{
     color: #a9a9b3
   }
-
+  
   .post-link{
       font-weight: normal;
-      color: #cb6b3f;
+      color: #ff9021;
   }
 
+
+  
   .page-meta a,  a:visited {
-    color: #cb6b3f;
+    color: #ff9021;
   }
-
+  
   .page-meta{
-    color: #cb6b3f;
+    color: #ff9021;
   }
 
   a {
-    color: #cb6b3f;
+    color: #ff9021;
     text-decoration: none;
-
+  
     &:hover {
-      color: #cb6b3f;
+      color: #ff9021;
       text-decoration: underline;
     }
 
     &:visited{
-    color: #cb6b3f;
+    color: #ff9021;
     }
   }
 
   .u-email{
     color: #9f9fa9;
   }
-
+  
   .site-footer{
-    background-color: #292a2d;
+    background-color: #232427;
   }
-
+  
   .site-header{
-    background-color: #292a2d;
+    background-color: #232427;
   }
-
+  
   .site-nav .page-link {
     color: #a9a9b3;
   }
-
+  
   .site-title, .site-title:visited {
     color: #a9a9b3;
   }
-
+  
   body {
     color: #9f9fa9;
   }
@@ -146,18 +181,31 @@ li .post-meta-description {
 
   pre, code {
     font-family: "Menlo", "Inconsolata", "Consolas", "Roboto Mono", "Ubuntu Mono", "Liberation Mono", "Courier New", monospace;
-    color: #a9a9b3 ; 
+    color: #ABB9D0 ; 
     font-size: 0.9375em;
     border: 0px solid #e8e8e8;
-    background-color: #323443;
+    background-color: #373E4A;
   }
 
+  .fa-tags:before {
+    color: #9f9fa9;
+    content: "\f02c";
+}
 
+table th {
+  color: #ABB9D0;
+  background-color: #373E4A;
+  border: 1px solid #323443;
+}
 
+table td {
+  color: #ABB9D0;
+  background-color: #373E4A;
+  border: 1px solid #323443;
+}
 
 // If you want to turn off dark background for syntax highlighting, comment or delete the below line.
 @import "minima/fastpages-dracula-highlight"; 
-
 
 .highlight .err, .highlight .g, .highlight .l, .highlight .n, .highlight .x, .highlight .ge, .highlight .gr, .highlight .gh, .highlight .gi, .highlight .gp, .highlight .gs, .highlight .gu, .highlight .gt, .highlight .ld, .highlight .no, .highlight .nd, .highlight .pi, .highlight .ni, .highlight .ne, .highlight .nn, .highlight .nx, .highlight .py, .highlight .w, .highlight .bp {
   color: #f8f8f2;
@@ -175,7 +223,7 @@ li .post-meta-description {
 
 
 .highlight .k, .highlight .o, .highlight .cp, .highlight .kc, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .nt, .highlight .ow {
-  color: #e98e27;
+  color: #ff9021;
 }
 
 .highlight .p {
@@ -184,7 +232,7 @@ li .post-meta-description {
 }
 
 .highlight .hll, .highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .s1, .highlight .ss {
-  color: #e98e27;
+  color: #ff9021;
 }
 
 .highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo, .highlight .il {
