@@ -1,9 +1,9 @@
 ---
 toc: true
 layout: post
-description: A minimal example of using markdown with fastpages.
+description: A Blog to explain how to choose motors for Robotics.
 categories: [Motor,Robotics]
-title: An Example Markdown Post
+title: How to Choose Motors
 ---
 # Motor
 
