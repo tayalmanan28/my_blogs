@@ -1,11 +1,11 @@
 ---
 toc: true
 layout: post
-description: A Blog to explain how to choose motors for Robotics.
-categories: [Motor,Robotics]
-title: How to Choose Motors
+description: A Blog to explain how to choose Batteries for Robotics.
+categories: [Battery,Robotics]
+title: How to Choose Batteries
 ---
-# Motor
+# Batteries
 
 ## Basic setup
 
