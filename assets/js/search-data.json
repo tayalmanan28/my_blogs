@@ -1,16 +1,5 @@
 {
   
-    
-        "post0": {
-            "title": "First Blog Post",
-            "content": "First Blog Post . Basic setup . My first Blog Post . Tweetcards . Awesome Rajyasabha Speech on Web3.0 by Priyanka Chaturvedi pic.twitter.com/VONNdLDawF . &mdash; Manan Tayal (@tayalmanan28) March 31, 2022 Footnotes .",
-            "url": "https://tayalmanan28.github.io/my_blogs/markdown/2022/04/01/my-firstblog.html",
-            "relUrl": "/markdown/2022/04/01/my-firstblog.html",
-            "date": " • Apr 1, 2022"
-        }
-        
-    
-  
 
   
   
@@ -37,7 +26,7 @@
   
 
   
-      ,"page9": {
+      "page9": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "https://tayalmanan28.github.io/my_blogs/robots.txt",
