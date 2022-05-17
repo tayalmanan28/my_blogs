@@ -1,12 +1,16 @@
 ---
 toc: true
 layout: post
-description: A Blog to explain how to choose motors for Robotics.
-image: images/tm.png
+description: A Blog on Offline Reinforcement Learning Using Implicit-Q-Learning.
+image: images/iql.png
 categories: [Reinforcement-Learning,Robotics]
 title: Offline Reinforcement Learning
 ---
-# Motor
+# Offline Reinforcement Learning
+Offline reinforcement learning requires reconciling two conflicting aims: learning a policy that improves over the behavior policy that collected the dataset, while at the same time minimizing the deviation from the behavior policy so as to avoid errors due to distributional shift. 
 
-## Basic setup
+![iql](https://user-images.githubusercontent.com/42448031/168831349-89edcad5-d335-4a8b-8b54-6c478d2c6e02.png)
+
+This trade-off is critical, because most current offline reinforcement learning methods need to query the value of unseen actions during training to improve the policy, and therefore need to either constrain these actions to be in-distribution, or else regularize their values. We propose an offline RL method that never needs to evaluate actions outside of the dataset, but still enables the learned policy to improve substantially over the best behavior in the data through generalization. The main insight in our work is that, instead of evaluating unseen actions from the latest policy, we can approximate the policy improvement step implicitly by treating the state value function as a random variable, with randomness determined by the action (while still integrating over the dynamics to avoid excessive optimism), and then taking a state conditional upper expectile of this random variable to estimate the value of the best actions in that state. This leverages the generalization capacity of the function approximator to estimate the value of the best available action at a given state without ever directly querying a Q-function with this unseen action. Our algorithm alternates between fitting this upper expectile value function and backing it up into a Q-function. Then, we extract the policy via advantage-weighted behavioral cloning. We dub our method implicit Q-learning (IQL). IQL demonstrates the state-of-the-art performance on D4RL, a standard benchmark for offline reinforcement learning. We also demonstrate that IQL achieves strong performance fine-tuning using online interaction after offline initialization.
+
 
