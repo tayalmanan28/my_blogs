@@ -2,6 +2,7 @@
 toc: true
 layout: post
 description: A Blog to explain how to choose Batteries for Robotics.
+image: images/battery.png
 categories: [Battery,Robotics]
 title: How to Choose Batteries
 ---
