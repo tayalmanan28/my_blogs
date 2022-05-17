@@ -13,12 +13,14 @@
 <link rel="canonical" href="https://tayalmanan28.github.io/my_blogs/reinforcement-learning/robotics/2022/05/02/Safe-Reinforcement-Learning.html" />
 <meta property="og:url" content="https://tayalmanan28.github.io/my_blogs/reinforcement-learning/robotics/2022/05/02/Safe-Reinforcement-Learning.html" />
 <meta property="og:site_name" content="Manan Tayal" />
+<meta property="og:image" content="https://tayalmanan28.github.io/my_blogs/images/tm.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-05-02T00:00:00-05:00" />
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://tayalmanan28.github.io/my_blogs/images/tm.png" />
 <meta property="twitter:title" content="Safe Reinforcement Learning" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-05-02T00:00:00-05:00","datePublished":"2022-05-02T00:00:00-05:00","description":"Safe Model-Based Reinforcement Learning using Robust Control Barrier Functions.","headline":"Safe Reinforcement Learning","mainEntityOfPage":{"@type":"WebPage","@id":"https://tayalmanan28.github.io/my_blogs/reinforcement-learning/robotics/2022/05/02/Safe-Reinforcement-Learning.html"},"url":"https://tayalmanan28.github.io/my_blogs/reinforcement-learning/robotics/2022/05/02/Safe-Reinforcement-Learning.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-05-02T00:00:00-05:00","datePublished":"2022-05-02T00:00:00-05:00","description":"Safe Model-Based Reinforcement Learning using Robust Control Barrier Functions.","headline":"Safe Reinforcement Learning","image":"https://tayalmanan28.github.io/my_blogs/images/tm.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://tayalmanan28.github.io/my_blogs/reinforcement-learning/robotics/2022/05/02/Safe-Reinforcement-Learning.html"},"url":"https://tayalmanan28.github.io/my_blogs/reinforcement-learning/robotics/2022/05/02/Safe-Reinforcement-Learning.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/my_blogs/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://tayalmanan28.github.io/my_blogs/feed.xml" title="Manan Tayal" /><link rel="shortcut icon" type="image/x-icon" href="/my_blogs/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -133,19 +135,14 @@ window.onload = wrap_img;
 
 <p>While exploring, an RL agent can take actions that lead the system to unsafe states. Here, we use a differentiable RCBF safety layer that minimially alters (in the least-squares sense) the actions taken by the RL agent to ensure the safety of the agent.</p>
 
-<!-- ![Framework Overview](https://github.com/yemam3/SAC-RCBF/raw/master/figures/framework_diagram.png width="100" height="100" "Framework Overview") -->
-
-<p align="center">
-&lt;img src="https://github.com/yemam3/SAC-RCBF/raw/master/figures/framework_diagram.png" width=60% height=60%&gt;
-</p>
-
 <h2 id="robust-control-barrier-functions-rcbfs">
 <a class="anchor" href="#robust-control-barrier-functions-rcbfs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Robust Control Barrier Functions (RCBFs)</h2>
 
 <p>In this work, we focus on RCBFs that are formulated with respect to differential inclusions of the following form:</p>
-
 <p align="center">
-&lt;img src="https://github.com/yemam3/SAC-RCBF/raw/master/figures/diff_inc.png" width=30% height=30%&gt;
+ ![framework_diagram](https://user-images.githubusercontent.com/42448031/168827781-e7d59ff5-5cf8-4511-b737-84d0ec30512c.png)
+ ![diff_inc](https://user-images.githubusercontent.com/42448031/168827930-f4ea14fa-3443-4698-86d2-3ad3207996ee.png)
+ 
 </p>
 
 <p>Here <code class="language-plaintext highlighter-rouge">D(x)</code> is a disturbance set unkown apriori to the robot, which we learn online during traing via Gaussian Processes (GPs). The underlying library is GPyTorch.</p>
@@ -153,13 +150,13 @@ window.onload = wrap_img;
 <p>The QP used to ensure the system’s safety is given by:</p>
 
 <p align="center">
-&lt;img src="https://github.com/yemam3/SAC-RCBF/raw/master/figures/qp.png" width=70% height=70%&gt;
+ ![qp](https://user-images.githubusercontent.com/42448031/168828078-3474e18e-4832-4f9f-bfaf-d9d0103a969b.png)
 </p>
 
 <p>where <code class="language-plaintext highlighter-rouge">h(x)</code> is the RCBF, and <code class="language-plaintext highlighter-rouge">u_RL</code> is the action outputted by the RL policy. As such, the final (safe) action taken in the environment is given by <code class="language-plaintext highlighter-rouge">u = u_RL + u_RCBF</code> as shown in the following diagram:</p>
 
 <p align="center">
-&lt;img src="https://github.com/yemam3/SAC-RCBF/raw/master/figures/policy_diagram.png" width=70% height=70%&gt;
+ ![policy_diagram](https://user-images.githubusercontent.com/42448031/168828289-0711a2f5-5067-4764-a1b9-f192cabebebf.png)
 </p>
 
 <h2 id="coupling-rl--rcbfs-to-improve-training-performance">
