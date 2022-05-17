@@ -2,7 +2,7 @@
 toc: true
 layout: post
 description: Safe Model-Based Reinforcement Learning using Robust Control Barrier Functions.
-image: images/tm.png
+image: images/framework_diagram.png
 categories: [Reinforcement-Learning,Robotics]
 title: Safe Reinforcement Learning
 ---
