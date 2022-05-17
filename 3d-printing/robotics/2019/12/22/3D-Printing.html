@@ -8,17 +8,19 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="3D Printing" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="A Blog to explain how to choose motors for Robotics." />
-<meta property="og:description" content="A Blog to explain how to choose motors for Robotics." />
+<meta name="description" content="A Blog to explain about 3D Printing." />
+<meta property="og:description" content="A Blog to explain about 3D Printing." />
 <link rel="canonical" href="https://tayalmanan28.github.io/my_blogs/3d-printing/robotics/2019/12/22/3D-Printing.html" />
 <meta property="og:url" content="https://tayalmanan28.github.io/my_blogs/3d-printing/robotics/2019/12/22/3D-Printing.html" />
 <meta property="og:site_name" content="Manan Tayal" />
+<meta property="og:image" content="https://tayalmanan28.github.io/my_blogs/images/3dprint.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-12-22T00:00:00-06:00" />
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://tayalmanan28.github.io/my_blogs/images/3dprint.png" />
 <meta property="twitter:title" content="3D Printing" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2019-12-22T00:00:00-06:00","datePublished":"2019-12-22T00:00:00-06:00","description":"A Blog to explain how to choose motors for Robotics.","headline":"3D Printing","mainEntityOfPage":{"@type":"WebPage","@id":"https://tayalmanan28.github.io/my_blogs/3d-printing/robotics/2019/12/22/3D-Printing.html"},"url":"https://tayalmanan28.github.io/my_blogs/3d-printing/robotics/2019/12/22/3D-Printing.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2019-12-22T00:00:00-06:00","datePublished":"2019-12-22T00:00:00-06:00","description":"A Blog to explain about 3D Printing.","headline":"3D Printing","image":"https://tayalmanan28.github.io/my_blogs/images/3dprint.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://tayalmanan28.github.io/my_blogs/3d-printing/robotics/2019/12/22/3D-Printing.html"},"url":"https://tayalmanan28.github.io/my_blogs/3d-printing/robotics/2019/12/22/3D-Printing.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/my_blogs/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://tayalmanan28.github.io/my_blogs/feed.xml" title="Manan Tayal" /><link rel="shortcut icon" type="image/x-icon" href="/my_blogs/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -89,13 +91,13 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">3D Printing</h1><p class="page-description">A Blog to explain how to choose motors for Robotics.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-12-22T00:00:00-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">3D Printing</h1><p class="page-description">A Blog to explain about 3D Printing.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-12-22T00:00:00-06:00" itemprop="datePublished">
         Dec 22, 2019
       </time>
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      10 min read
     
 </span></p>
 
@@ -115,17 +117,93 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#3d-printing">3D Printing</a>
+<li class="toc-entry toc-h1"><a href="#general-principles">General Principles</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#basic-setup">Basic setup</a></li>
+<li class="toc-entry toc-h2"><a href="#modeling">Modeling</a></li>
+<li class="toc-entry toc-h2"><a href="#printing">Printing</a></li>
+<li class="toc-entry toc-h2"><a href="#finishing">Finishing</a></li>
+<li class="toc-entry toc-h2"><a href="#materials">Materials</a></li>
+<li class="toc-entry toc-h2"><a href="#multi-material-3d-printing">Multi-material 3D printing</a></li>
+<li class="toc-entry toc-h2"><a href="#4d-printing">4D printing</a></li>
 </ul>
 </li>
-</ul><h1 id="3d-printing">
-<a class="anchor" href="#3d-printing" aria-hidden="true"><span class="octicon octicon-link"></span></a>3D Printing</h1>
+</ul><p><img src="https://user-images.githubusercontent.com/42448031/168891207-10062597-de5e-4aab-9174-dc568b5f56e3.gif" alt="3dprint"></p>
 
-<h2 id="basic-setup">
-<a class="anchor" href="#basic-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic setup</h2>
+<p>3D printing, or additive manufacturing, is the construction of a three-dimensional object from a CAD model or a digital 3D model. The term “3D printing” can refer to a variety of processes in which material is deposited, joined or solidified under computer control to create a three-dimensional object, with material being added together (such as plastics, liquids or powder grains being fused together), typically layer by layer.</p>
 
+<p>In the 1980s, 3D printing techniques were considered suitable only for the production of functional or aesthetic prototypes, and a more appropriate term for it at the time was rapid prototyping. As of 2019, the precision, repeatability, and material range of 3D printing have increased to the point that some 3D printing processes are considered viable as an industrial-production technology, whereby the term additive manufacturing can be used synonymously with 3D printing. One of the key advantages of 3D printing is the ability to produce very complex shapes or geometries that would be otherwise impossible to construct by hand, including hollow parts or parts with internal truss structures to reduce weight. Fused deposition modeling (FDM), which uses a continuous filament of a thermoplastic material, is the most common 3D printing process in use as of 2020.</p>
+
+<h1 id="general-principles">
+<a class="anchor" href="#general-principles" aria-hidden="true"><span class="octicon octicon-link"></span></a>General Principles</h1>
+
+<h2 id="modeling">
+<a class="anchor" href="#modeling" aria-hidden="true"><span class="octicon octicon-link"></span></a>Modeling</h2>
+
+<p>3D printable models may be created with a computer-aided design (CAD) package, via a 3D scanner, or by a plain digital camera and photogrammetry software. 3D printed models created with CAD result in relatively fewer errors than other methods. Errors in 3D printable models can be identified and corrected before printing. The manual modeling process of preparing geometric data for 3D computer graphics is similar to plastic arts such as sculpting. 3D scanning is a process of collecting digital data on the shape and appearance of a real object, creating a digital model based on it.</p>
+
+<p>CAD models can be saved in the stereolithography file format (STL), a de facto CAD file format for additive manufacturing that stores data based on triangulations of the surface of CAD models. STL is not tailored for additive manufacturing because it generates large file sizes of topology optimized parts and lattice structures due to the large number of surfaces involved. A newer CAD file format, the Additive Manufacturing File format (AMF) was introduced in 2011 to solve this problem. It stores information using curved triangulations.</p>
+
+<h2 id="printing">
+<a class="anchor" href="#printing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Printing</h2>
+<p>Before printing a 3D model from an STL file, it must first be examined for errors. Most CAD applications produce errors in output STL files,[49][50] of the following types:</p>
+
+<ul>
+  <li>holes</li>
+  <li>faces normals</li>
+  <li>self-intersections</li>
+  <li>noise shells</li>
+  <li>manifold errors</li>
+  <li>overhang issues 
+A step in the STL generation known as “repair” fixes such problems in the original model. Generally STLs that have been produced from a model obtained through 3D scanning often have more of these errors as 3D scanning is often achieved by point to point acquisition/mapping. 3D reconstruction often includes errors.</li>
+</ul>
+
+<p>Once completed, the STL file needs to be processed by a piece of software called a “slicer”, which converts the model into a series of thin layers and produces a G-code file containing instructions tailored to a specific type of 3D printer (FDM printers). This G-code file can then be printed with 3D printing client software (which loads the G-code, and uses it to instruct the 3D printer during the 3D printing process).</p>
+
+<p>Printer resolution describes layer thickness and X–Y resolution in dots per inch (dpi) or micrometers (µm). Typical layer thickness is around 100 μm (250 DPI), although some machines can print layers as thin as 16 μm (1,600 DPI). X–Y resolution is comparable to that of laser printers. The particles (3D dots) are around 50 to 100 μm (510 to 250 DPI) in diameter. For that printer resolution, specifying a mesh resolution of 0.01–0.03 mm and a chord length ≤ 0.016 mm generates an optimal STL output file for a given model input file. Specifying higher resolution results in larger files without increase in print quality.</p>
+
+<p>Construction of a model with contemporary methods can take anywhere from several hours to several days, depending on the method used and the size and complexity of the model. Additive systems can typically reduce this time to a few hours, although it varies widely depending on the type of machine used and the size and number of models being produced simultaneously.</p>
+
+<h2 id="finishing">
+<a class="anchor" href="#finishing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finishing</h2>
+<p>Though the printer-produced resolution is sufficient for many applications, greater accuracy can be achieved by printing a slightly oversized version of the desired object in standard resolution and then removing material using a higher-resolution subtractive process.</p>
+
+<p>The layered structure of all additive manufacturing processes leads inevitably to a stair-stepping effect on part surfaces which are curved or tilted in respect to the building platform. The effects strongly depend on the orientation of a part surface inside the building process.</p>
+
+<p>Some printable polymers such as ABS, allow the surface finish to be smoothed and improved using chemical vapor processes based on acetone or similar solvents.</p>
+
+<p>Some additive manufacturing techniques are capable of using multiple materials in the course of constructing parts. These techniques are able to print in multiple colors and color combinations simultaneously, and would not necessarily require painting.</p>
+
+<p>Some printing techniques require internal supports to be built for overhanging features during construction. These supports must be mechanically removed or dissolved upon completion of the print.</p>
+
+<p>All of the commercialized metal 3D printers involve cutting the metal component off the metal substrate after deposition. A new process for the GMAW 3D printing allows for substrate surface modifications to remove aluminum or steel.</p>
+
+<h2 id="materials">
+<a class="anchor" href="#materials" aria-hidden="true"><span class="octicon octicon-link"></span></a>Materials</h2>
+
+<p>Traditionally, 3D printing focused on polymers for printing, due to the ease of manufacturing and handling polymeric materials. However, the method has rapidly evolved to not only print various polymers but also metals and ceramics, making 3D printing a versatile option for manufacturing. Layer-by-layer fabrication of three-dimensional physical models is a modern concept that “stems from the ever-growing CAD industry, more specifically the solid modeling side of CAD. Before solid modeling was introduced in the late 1980s, three-dimensional models were created with wire frames and surfaces.” but in all cases the layers of materials are controlled by the printer and the material properties. The three-dimensional material layer is controlled by deposition rate as set by the printer operator and stored in a computer file. The earliest printed patented material was a Hot melt type ink for printing patterns using a heated metal alloy. See 1970s history above.</p>
+
+<p>Charles Hull filed the first patent on August 8, 1984, to use a UV-cured acrylic resin using a UV masked light source at UVP Corp to build a simple model. The SLA-1 was the first SL product announced by 3D Systems at Autofact Exposition, Detroit, November 1978 in Detroit. The SLA-1 Beta shipped in Jan 1988 to Baxter Healthcare, Pratt and Whitney, General Motors and AMP. The first production SLA-1 shipped to Precision Castparts in April 1988. The UV resin material changed over quickly to an epoxy-based material resin. In both cases, SLA-1 models needed UV oven curing after being rinsed in a solvent cleaner to remove uncured boundary resin. A Post Cure Apparatus (PCA) was sold with all systems. The early resin printers required a blade to move fresh resin over the model on each layer. The layer thickness was 0.006 inches and the HeCd Laser model of the SLA-1 was 12 watts and swept across the surface at 30 in per second. UVP was acquired by 3D Systems in Jan 1990.</p>
+
+<p>A review in the history shows a number of materials (resins, plastic powder, plastic filament and hot-melt plastic ink) were used in the 1980s for patents in the rapid prototyping field. Masked lamp UV-cured resin was also introduced by Cubital’s Itzchak Pomerantz in the Soldier 5600, Carl Deckard’s (DTM) laser sintered thermoplastic powders, and adhesive-laser cut paper (LOM) stacked to form objects by Michael Feygin before 3D Systems made its first announcement. Scott Crump was also working with extruded “melted” plastic filament modeling (FDM) and Drop deposition had been patented by William E Masters a week after Charles Hull’s patent in 1984, but he had to discover Thermoplastic Inkjets introduced by Visual Impact Corporation 3D printer in 1992 using inkjets from Howtek, Inc., before he formed BPM to bring out his own 3D printer product in 1994.</p>
+
+<h2 id="multi-material-3d-printing">
+<a class="anchor" href="#multi-material-3d-printing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multi-material 3D printing</h2>
+
+<p>Efforts to achieve multi-material 3D printing range from enhanced FDM-like processes like VoxelJet, to novel voxel-based printing technologies like layered assembly.</p>
+
+<p>A drawback of many existing 3D printing technologies is that they only allow one material to be printed at a time, limiting many potential applications which require the integration of different materials in the same object. Multi-material 3D printing solves this problem by allowing objects of complex and heterogeneous arrangements of materials to be manufactured using a single printer. Here, a material must be specified for each voxel (or 3D printing pixel element) inside the final object volume.</p>
+
+<p>The process can be fraught with complications, however, due to the isolated and monolithic algorithms. Some commercial devices have sought to solve these issues, such as building a Spec2Fab translator, but the progress is still very limited. Nonetheless, in the medical industry, a concept of 3D printed pills and vaccines has been presented. With this new concept, multiple medications can be combined, which will decrease many risks. With more and more applications of multi-material 3D printing, the costs of daily life and high technology development will become inevitably lower.</p>
+
+<p>Metallographic materials of 3D printing is also being researched. By classifying each material, CIMP-3D can systematically perform 3D printing with multiple materials.</p>
+
+<h2 id="4d-printing">
+<a class="anchor" href="#4d-printing" aria-hidden="true"><span class="octicon octicon-link"></span></a>4D printing</h2>
+<p>Using 3D printing and multi-material structures in additive manufacturing has allowed for the design and creation of what is called 4D printing. 4D printing is an additive manufacturing process in which the printed object changes shape with time, temperature, or some other type of stimulation. 4D printing allows for the creation of dynamic structures with adjustable shapes, properties or functionality. The smart/stimulus responsive materials that are created using 4D printing can be activated to create calculated responses such as self-assembly, self-repair, multi-functionality, reconfiguration and shape shifting. This allows for customized printing of shape changing and shape-memory materials.</p>
+
+<p>4D printing has the potential to find new applications and uses for materials (plastics, composites, metals, etc.) and will create new alloys and composites that were not viable before. The versatility of this technology and materials can lead to advances in multiple fields of industry, including space, commercial and the medical field. The repeatability, precision, and material range for 4D printing must increase to allow the process to become more practical throughout these industries.</p>
+
+<p>To become a viable industrial production option, there are a couple of challenges that 4D printing must overcome. The challenges of 4D printing include the fact that the microstructures of these printed smart materials must be close to or better than the parts obtained through traditional machining processes. New and customizable materials need to be developed that have the ability to consistently respond to varying external stimuli and change to their desired shape. There is also a need to design new software for the various technique types of 4D printing. The 4D printing software will need to take into consideration the base smart material, printing technique, and structural and geometric requirements of the design.</p>
 
   </div><a class="u-url" href="/my_blogs/3d-printing/robotics/2019/12/22/3D-Printing.html" hidden></a>
 </article>
