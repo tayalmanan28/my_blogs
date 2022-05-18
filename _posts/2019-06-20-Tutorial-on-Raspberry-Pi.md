@@ -1,7 +1,16 @@
-# Introduction
-This tutorial tries to take you through setup and using an RPi from scratch. All you need is that you've bought an RPi and have an internet connection. Actually, I recommend reading this if you're thinking of buying one, you'll see some instructions on what you need to buy so it's a good idea. Also the [RPi documentation][1] is the single best resource for starting with your RPi IMO, so you can also read that first. My post is somewhat complementary of that documentation.
+---
+toc: true
+layout: post
+description: A Blog on Raspberry-Pi.
+image: images/rpi.png
+categories: [Raspberry-Pi,Robotics]
+title: Tutorial on Raspberry-Pi
+---
 
-## Introduction to the RPi
+
+This tutorial tries to take you through setup and using a Raspberry Pi (or RPi in short) from scratch. All you need is that you've bought an RPi and have an internet connection. Actually, I recommend reading this if you're thinking of buying one, you'll see some instructions on what you need to buy so it's a good idea. Also the [RPi documentation][1] is the single best resource for starting with your RPi IMO, so you can also read that first. My post is somewhat complementary of that documentation.
+
+# Introduction to the RPi
 I've often come across the question, when do I need an RPi? You'll often need an RPi if you need a decent amount of portable processing. This is usually for complicated tasks like Machine Learning, Image Processing, running a server, etc. I've had mentees use RPi for various combinations of these too.
 
 ## What's so great about an RPi?
