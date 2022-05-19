@@ -1,12 +1,15 @@
 ---
 toc: true
 layout: post
-description: Reinforcement Learning.
+description: Reinforcement Learning
+image: images/rl.png
 categories: [Reinforcement-Learning,Robotics]
 title: Reinforcement Learning
 ---
 # What is reinforcement learning?
 Reinforcement learning (RL) is a machine learning technique that focuses on training an algorithm following the cut-and-try approach. The algorithm (agent) evaluates a current situation (state), takes an action, and receives feedback (reward) from the environment after each act. Positive feedback is a reward (in its usual meaning for us), and negative feedback is punishment for making a mistake.
+
+![rl](https://user-images.githubusercontent.com/42448031/169251804-d745e6d8-249d-459c-b296-af121c5128bb.png)
 
 
 RL algorithm learns how to act best through many attempts and failures. Trial-and-error learning is connected with the so-called long-term reward. This reward is the ultimate goal the agent learns while interacting with an environment through numerous trials and errors. The algorithm gets short-term rewards that together lead to the cumulative, long-term one.
@@ -33,7 +36,7 @@ Most of reinforcement learning implementations employ deep learning models. They
 Reinforcement learning is applicable in numerous industries, including internet advertising and eCommerce, finance, robotics, and manufacturing. Let’s take a closer look at these use cases.
 
 ## Personalization
-###News recommendation.
+### News recommendation.
 Machine learning has made it possible for businesses to personalize customer interactions at scale through the analysis of data on their preferences, background, and online behavior patterns.
 
 However, recommending such content type as online news is still a complex task. News features are dynamic by nature and become rapidly irrelevant. User preferences in topics change as well.
