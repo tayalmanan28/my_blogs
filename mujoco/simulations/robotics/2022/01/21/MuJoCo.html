@@ -142,72 +142,80 @@ window.onload = wrap_img;
 <a class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 <p>Let us now follow the following steps to setup MuJoCo on our Linux System</p>
 
-<p>Step 1:  Install anaconda
-	<a href="https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh">Download</a>
-	<code class="language-plaintext highlighter-rouge">
-	sudo chmod +x Anaconda3-2021.11-Linux-x86_64.sh
-	./Anaconda3-2021.11-Linux-x86_64.sh
-	</code></p>
-
-<p>Step 2 : install git
-	<code class="language-plaintext highlighter-rouge">sudo apt install git</code></p>
-
-<p>Step 3 : install the mujoco library</p>
-
 <ol>
-  <li>Download the Mujoco library from <a href="https://mujoco.org/download/mujoco210-linux-x86_64.tar.gz">here</a>
-</li>
-  <li>create a hidden folder :
- 	<code class="language-plaintext highlighter-rouge">
- mkdir /home/username/.mujoco
-</code>
-</li>
-  <li>extract the library to the .mujoco folder</li>
-  <li>include these lines in  .bashrc file:
+  <li>
+    <p>Install anaconda
+ <a href="https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh">Download</a></p>
+
     <div class="language-plaintext highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code> export LD_LIBRARY_PATH=/home/tayal/.mujoco/mujoco210/bin
- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia
- export PATH="$LD_LIBRARY_PATH:$PATH"
- export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so
+<div class="highlight"><pre class="highlight"><code> sudo chmod +x Anaconda3-2021.11-Linux-x86_64.sh
+ ./Anaconda3-2021.11-Linux-x86_64.sh
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>source .bashrc</p>
+    <p>install git
+ <code class="language-plaintext highlighter-rouge">sudo apt install git</code></p>
   </li>
-  <li>Test that the library is installed by going into:
+  <li>
+    <p>install the mujoco library</p>
+
+    <ul>
+      <li>Download the Mujoco library from <a href="https://mujoco.org/download/mujoco210-linux-x86_64.tar.gz">here</a>
+</li>
+      <li>create a hidden folder :
+        <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  mkdir /home/username/.mujoco
+</code></pre></div>        </div>
+      </li>
+      <li>extract the library to the .mujoco folder</li>
+      <li>include these lines in  .bashrc file:
+        <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  export LD_LIBRARY_PATH=/home/tayal/.mujoco/mujoco210/bin
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia
+  export PATH="$LD_LIBRARY_PATH:$PATH"
+  export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>source .bashrc</p>
+      </li>
+      <li>Test that the library is installed by going into:
+        <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  cd ~/.mujoco/mujoco210/bin
+  ./simulate ../model/humanoid.xml
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>Install mujoco-py:
     <div class="language-plaintext highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code> cd ~/.mujoco/mujoco210/bin
- ./simulate ../model/humanoid.xml
+<div class="highlight"><pre class="highlight"><code> conda create --name mujoco_py python=3.8
+ conda activate mujoco_py
+ sudo apt update
+ sudo apt-get install patchelf
+ sudo apt-get install python3-dev build-essential libssl-dev libffi-dev libxml2-dev  
+ sudo apt-get install libxslt1-dev zlib1g-dev libglew1.5 libglew-dev python3-pip
+ git clone https://github.com/openai/mujoco-py
+ cd mujoco-py
+ pip install -r requirements.txt
+ pip install -r requirements.dev.txt
+ pip3 install -e . --no-cache
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>reboot your machine</p>
+  </li>
+  <li>run these commands
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> conda activate mujoco_py
+ sudo apt install libosmesa6-dev libgl1-mesa-glx libglfw3
+ sudo ln -s /usr/lib/x86_64-linux-gnu/libGL.so.1 /usr/lib/x86_64-linux-gnu/libGL.so
+ pip3 install -U 'mujoco-py&lt;2.2,&gt;=2.1'
+ cd examples
+ python3 setting_state.py
 </code></pre></div>    </div>
   </li>
 </ol>
-
-<p>Step 4 Install mujoco-py:
-	<code class="language-plaintext highlighter-rouge">
-	conda create --name mujoco_py python=3.8
-	conda activate mujoco_py
-	sudo apt update
-	sudo apt-get install patchelf
-	sudo apt-get install python3-dev build-essential libssl-dev libffi-dev libxml2-dev  
-	sudo apt-get install libxslt1-dev zlib1g-dev libglew1.5 libglew-dev python3-pip
-	git clone https://github.com/openai/mujoco-py
-	cd mujoco-py
-	pip install -r requirements.txt
-	pip install -r requirements.dev.txt
-	pip3 install -e . --no-cache
-	</code></p>
-
-<p>Step 5 reboot your machine</p>
-
-<p>Step 6 run these commands
-	<code class="language-plaintext highlighter-rouge">
-	conda activate mujoco_py
-	sudo apt install libosmesa6-dev libgl1-mesa-glx libglfw3
-	sudo ln -s /usr/lib/x86_64-linux-gnu/libGL.so.1 /usr/lib/x86_64-linux-gnu/libGL.so
-	pip3 install -U 'mujoco-py&lt;2.2,&gt;=2.1'
-	cd examples
-	python3 setting_state.py
-	</code></p>
 
 
   </div><a class="u-url" href="/my_blogs/mujoco/simulations/robotics/2022/01/21/MuJoCo.html" hidden></a>
