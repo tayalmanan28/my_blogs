@@ -8,17 +8,19 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Getting Started with MuJoCo" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="A Blog to explain how to choose motors for Robotics." />
-<meta property="og:description" content="A Blog to explain how to choose motors for Robotics." />
+<meta name="description" content="A Blog to get started with the MuJoCo Environment" />
+<meta property="og:description" content="A Blog to get started with the MuJoCo Environment" />
 <link rel="canonical" href="https://tayalmanan28.github.io/my_blogs/mujoco/simulations/robotics/2022/01/21/MuJoCo.html" />
 <meta property="og:url" content="https://tayalmanan28.github.io/my_blogs/mujoco/simulations/robotics/2022/01/21/MuJoCo.html" />
 <meta property="og:site_name" content="Manan Tayal" />
+<meta property="og:image" content="https://tayalmanan28.github.io/my_blogs/images/mujoco.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-01-21T00:00:00-06:00" />
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://tayalmanan28.github.io/my_blogs/images/mujoco.png" />
 <meta property="twitter:title" content="Getting Started with MuJoCo" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-01-21T00:00:00-06:00","datePublished":"2022-01-21T00:00:00-06:00","description":"A Blog to explain how to choose motors for Robotics.","headline":"Getting Started with MuJoCo","mainEntityOfPage":{"@type":"WebPage","@id":"https://tayalmanan28.github.io/my_blogs/mujoco/simulations/robotics/2022/01/21/MuJoCo.html"},"url":"https://tayalmanan28.github.io/my_blogs/mujoco/simulations/robotics/2022/01/21/MuJoCo.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-01-21T00:00:00-06:00","datePublished":"2022-01-21T00:00:00-06:00","description":"A Blog to get started with the MuJoCo Environment","headline":"Getting Started with MuJoCo","image":"https://tayalmanan28.github.io/my_blogs/images/mujoco.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://tayalmanan28.github.io/my_blogs/mujoco/simulations/robotics/2022/01/21/MuJoCo.html"},"url":"https://tayalmanan28.github.io/my_blogs/mujoco/simulations/robotics/2022/01/21/MuJoCo.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/my_blogs/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://tayalmanan28.github.io/my_blogs/feed.xml" title="Manan Tayal" /><link rel="shortcut icon" type="image/x-icon" href="/my_blogs/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -89,13 +91,13 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Getting Started with MuJoCo</h1><p class="page-description">A Blog to explain how to choose motors for Robotics.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-01-21T00:00:00-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Getting Started with MuJoCo</h1><p class="page-description">A Blog to get started with the MuJoCo Environment</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-01-21T00:00:00-06:00" itemprop="datePublished">
         Jan 21, 2022
       </time>
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      2 min read
     
 </span></p>
 
@@ -118,12 +120,24 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul id="toc" class="section-nav">
-</ul><p>Step 1:  Install anaconda</p>
+</ul><p>#MuJoCo</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
-sudo chmod +x Anaconda3-2021.11-Linux-x86_64.sh
-./Anaconda3-2021.11-Linux-x86_64.sh
-</code></pre></div></div>
+<p>MuJoCo stands for Multi-Joint dynamics with Contact. It is a general purpose physics engine that aims to facilitate research and development in robotics, biomechanics, graphics and animation, machine learning, and other areas that demand fast and accurate simulation of articulated structures interacting with their environment. Initially developed by Roboti LLC, it was acquired and made freely available by DeepMind in October 2021, with the goal of making MuJoCo an open-source project.</p>
+
+<p>MuJoCo is a physics engine that aims to facilitate research and development in robotics, biomechanics, graphics and animation, and other areas where fast and accurate simulation is needed.</p>
+
+<p>MuJoCo offers a unique combination of speed, accuracy and modeling power, yet it is not merely a better simulator. Instead it is the first full-featured simulator designed from the ground up for the purpose of model-based optimization, and in particular optimization through contacts.</p>
+
+<p>MuJoCo makes it possible to scale up computationally-intensive techniques such optimal control, physically-consistent state estimation, system identification and automated mechanism design, and apply them to complex dynamical systems in contact-rich behaviors. It also has more traditional applications such as testing and validation of control schemes before deployment on physical robots, interactive scientific visualization, virtual environments, animation and gaming.</p>
+
+<p>The Documentation for MuJoCo is available <a href="https://mujoco.readthedocs.io/en/latest/overview.html">here</a></p>
+
+<p>##Installation
+Let us now follow the following steps to setup MuJoCo on our Linux System
+Step 1:  Install anaconda
+	<code class="language-plaintext highlighter-rouge">https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
+	sudo chmod +x Anaconda3-2021.11-Linux-x86_64.sh
+	./Anaconda3-2021.11-Linux-x86_64.sh</code></p>
 
 <p>Step 2 : install git
 	<code class="language-plaintext highlighter-rouge">sudo apt install git</code></p>
@@ -148,25 +162,23 @@ sudo chmod +x Anaconda3-2021.11-Linux-x86_64.sh
     <p>source .bashrc</p>
   </li>
   <li>Test that the library is installed by going into:
- 		cd ~/.mujoco/mujoco210/bin
-     ./simulate ../model/humanoid.xml</li>
+ 		<code class="language-plaintext highlighter-rouge">cd ~/.mujoco/mujoco210/bin
+     ./simulate ../model/humanoid.xml</code>
+</li>
 </ol>
 
 <p>Step 4 Install mujoco-py:
-	conda create –name mujoco_py python=3.8
+	<code class="language-plaintext highlighter-rouge">conda create --name mujoco_py python=3.8
 	conda activate mujoco_py
 	sudo apt update
 	sudo apt-get install patchelf
-	sudo apt-get install python3-dev build-essential libssl-dev libffi-dev libxml2-dev<br>
-	sudo apt-get install libxslt1-dev zlib1g-dev libglew1.5 libglew-dev python3-pip</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/openai/mujoco-py
-cd mujoco-py
-pip install -r requirements.txt
-pip install -r requirements.dev.txt
-
-pip3 install -e . --no-cache
-</code></pre></div></div>
+	sudo apt-get install python3-dev build-essential libssl-dev libffi-dev libxml2-dev  
+	sudo apt-get install libxslt1-dev zlib1g-dev libglew1.5 libglew-dev python3-pip
+	git clone https://github.com/openai/mujoco-py
+	cd mujoco-py
+	pip install -r requirements.txt
+	pip install -r requirements.dev.txt
+	pip3 install -e . --no-cache</code></p>
 
 <p>Step 5 reboot your machine</p>
 
