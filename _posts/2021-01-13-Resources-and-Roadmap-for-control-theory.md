@@ -1,7 +1,7 @@
 ---
 toc: true
 layout: post
-description: A Blog to explain how to choose motors for Robotics.
+description: A Blog on resources and roadmap for control theory.
 categories: [Control,Robotics]
 title: Resources and Roadmap for Control Theory
 ---
