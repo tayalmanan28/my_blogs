@@ -6,18 +6,19 @@ image: images/rpi.png
 categories: [Reinforcement Learning,Robotics]
 title: Domain Randomization for Sim2Real Transfer
 ---
+
 In Robotics, one of the hardest problems is how to make your model transfer to the real world. Due to the sample inefficiency of deep RL algorithms and the cost of data collection on real robots, we often need to train models in a simulator which theoretically provides an infinite amount of data. However, the reality gap between the simulator and the physical world often leads to failure when working with physical robots. The gap is triggered by an inconsistency between physical parameters (i.e. friction, kp, damping, mass, density) and, more fatally, the incorrect physical modeling (i.e. collision between soft surfaces).
 To close the sim2real gap, we need to improve the simulator and make it closer to reality. A couple of approaches:
 * System identification
-* System identification is to build a mathematical model for a physical system; in the context of RL, the mathematical model is the simulator. To make the simulator more realistic, careful calibration is necessary.
+    * System identification is to build a mathematical model for a physical system; in the context of RL, the mathematical model is the simulator. To make the simulator more realistic, careful calibration is necessary.
 Unfortunately, calibration is expensive. Furthermore, many physical parameters of the same machine might vary significantly due to temperature, humidity, positioning or its wear-and-tear in time.
     
 * Domain adaptation
-* Domain adaptation (DA) refers to a set of transfer learning techniques developed to update the data distribution in sim to match the real one through a mapping or regularization enforced by the task model.
-* Many DA models, especially for image classification or end-to-end image-based RL task, are built on adversarial loss or <a href="https://lilianweng.github.io/posts/2017-08-20-gan/">GAN</a>.
+    * Domain adaptation (DA) refers to a set of transfer learning techniques developed to update the data distribution in sim to match the real one through a mapping or regularization enforced by the task model.
+    * Many DA models, especially for image classification or end-to-end image-based RL task, are built on adversarial loss or [GAN](https://lilianweng.github.io/posts/2017-08-20-gan/).
 * Domain randomization
-* With Domain randomization (DR), we are able to create a variety of simulated environments with randomized properties and train a model that works across all of them.
-* Likely this model can adapt to the real-world environment, as the real system is expected to be one sample in that rich distribution of training variations.
+    * With Domain randomization (DR), we are able to create a variety of simulated environments with randomized properties and train a model that works across all of them.
+    * Likely this model can adapt to the real-world environment, as the real system is expected to be one sample in that rich distribution of training variations.
 
 Both DA and DR are unsupervised. Compared to DA which requires a decent amount of real data samples to capture the distribution, DR may need <em>only a little or no</em> real data. DR is the focus of this post.
 ![Conceptual illustrations of three approaches for sim2real transfer](images/sim2real-transfer.png)
