@@ -6,9 +6,6 @@ image: images/rpi.png
 categories: [Reinforcement Learning,Robotics]
 title: Domain Randomization for Sim2Real Transfer
 ---
-
-
-<div class="post-content"><!-- If a model or policy is mainly trained in a simulator but expected to work on a real robot, it would surely face the sim2real gap. *Domain Randomization* (DR) is a simple but powerful idea of closing this gap by randomizing properties of the training environment. -->
 <p>In Robotics, one of the hardest problems is how to make your model transfer to the real world. Due to the sample inefficiency of deep RL algorithms and the cost of data collection on real robots, we often need to train models in a simulator which theoretically provides an infinite amount of data. However, the reality gap between the simulator and the physical world often leads to failure when working with physical robots. The gap is triggered by an inconsistency between physical parameters (i.e. friction, kp, damping, mass, density) and, more fatally, the incorrect physical modeling (i.e. collision between soft surfaces).</p>
 <p>To close the sim2real gap, we need to improve the simulator and make it closer to reality. A couple of approaches:</p>
 <ul>
