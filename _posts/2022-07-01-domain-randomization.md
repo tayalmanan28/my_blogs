@@ -8,17 +8,22 @@ title: Domain Randomization for Sim2Real Transfer
 ---
 
 
-In Robotics, one of the hardest problems is how to make your model transfer to the real world. Due to the sample inefficiency of deep RL algorithms and the cost of data collection on real robots, we often need to train models in a simulator which theoretically provides an infinite amount of data. However, the reality gap between the simulator and the physical world often leads to failure when working with physical robots. The gap is triggered by an inconsistency between physical parameters (i.e. friction, kp, damping, mass, density) and, more fatally, the incorrect physical modeling (i.e. collision between soft surfaces).
-To close the sim2real gap, we need to improve the simulator and make it closer to reality. A couple of approaches:
-
-## System identification
-* System identification is to build a mathematical model for a physical system; in the context of RL, the mathematical model is the simulator. To make the simulator more realistic, careful calibration is necessary.
-* Unfortunately, calibration is expensive. Furthermore, many physical parameters of the same machine might vary significantly due to temperature, humidity, positioning or its wear-and-tear in time.
-
-## Domain adaptation
-* Domain adaptation (DA) refers to a set of transfer learning techniques developed to update the data distribution in sim to match the real one through a mapping or regularization enforced by the task model.
-* Many DA models, especially for image classification or end-to-end image-based RL task, are built on adversarial loss or <a href="https://lilianweng.github.io/posts/2017-08-20-gan/">GAN</a>.
-
+<div class="post-content"><!-- If a model or policy is mainly trained in a simulator but expected to work on a real robot, it would surely face the sim2real gap. *Domain Randomization* (DR) is a simple but powerful idea of closing this gap by randomizing properties of the training environment. -->
+<p>In Robotics, one of the hardest problems is how to make your model transfer to the real world. Due to the sample inefficiency of deep RL algorithms and the cost of data collection on real robots, we often need to train models in a simulator which theoretically provides an infinite amount of data. However, the reality gap between the simulator and the physical world often leads to failure when working with physical robots. The gap is triggered by an inconsistency between physical parameters (i.e. friction, kp, damping, mass, density) and, more fatally, the incorrect physical modeling (i.e. collision between soft surfaces).</p>
+<p>To close the sim2real gap, we need to improve the simulator and make it closer to reality. A couple of approaches:</p>
+<ul>
+<li><strong>System identification</strong>
+<ul>
+<li><em>System identification</em> is to build a mathematical model for a physical system; in the context of RL, the mathematical model is the simulator. To make the simulator more realistic, careful calibration is necessary.</li>
+<li>Unfortunately, calibration is expensive. Furthermore, many physical parameters of the same machine might vary significantly due to temperature, humidity, positioning or its wear-and-tear in time.</li>
+</ul>
+</li>
+<li><strong>Domain adaptation</strong>
+<ul>
+<li><em>Domain adaptation (DA)</em> refers to a set of transfer learning techniques developed to update the data distribution in sim to match the real one through a mapping or regularization enforced by the task model.</li>
+<li>Many DA models, especially for image classification or end-to-end image-based RL task, are built on adversarial loss or <a href="https://lilianweng.github.io/posts/2017-08-20-gan/">GAN</a>.</li>
+</ul>
+</li>
 <li><strong>Domain randomization</strong>
 <ul>
 <li>With <em>domain randomization (DR)</em>, we are able to create a variety of simulated environments with randomized properties and train a model that works across all of them.</li>
