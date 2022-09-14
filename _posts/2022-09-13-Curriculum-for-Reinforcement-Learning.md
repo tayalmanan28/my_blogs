@@ -11,7 +11,7 @@ It sounds like an impossible task if we want to teach integral or derivative to 
 Back in 1993, Jeffrey Elman has proposed the idea of training neural networks with a curriculum. His early work on learning simple language grammar demonstrated the importance of such a strategy: starting with a restricted set of simple data and gradually increasing the complexity of training samples; otherwise the model was not able to learn at all.
 Compared to training without a curriculum, we would expect the adoption of the curriculum to expedite the speed of convergence and may or may not improve the final model performance. To design an efficient and effective curriculum is not easy. Keep in mind that, a bad curriculum may even hamper learning.
 Next, we will look into several categories of curriculum learning, as illustrated in Fig. 1. Most cases are applied to Reinforcement Learning, with a few exceptions on Supervised Learning.
-[](https://tayalmanan28.github.io/my_blogs/images/types-of-curriculum-2.png)
+[.](https://tayalmanan28.github.io/my_blogs/images/types-of-curriculum-2.png)
 
 In "The importance of starting small" paper ([Elman 1993](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.128.4487&amp;rep=rep1&amp;type=pdf)), I especially like the starting sentences and find them both inspiring and affecting:
 
