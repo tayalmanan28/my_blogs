@@ -21,7 +21,7 @@ To close the sim2real gap, we need to improve the simulator and make it closer t
     - Likely this model can adapt to the real-world environment, as the real system is expected to be one sample in that rich distribution of training variations.
 
 Both DA and DR are unsupervised. Compared to DA which requires a decent amount of real data samples to capture the distribution, DR may need only a little or no real data. DR is the focus of this post.
-![Conceptual illustrations of three approaches for sim2real transfer](../images/sim2real-transfer.png)
+![Conceptual illustrations of three approaches for sim2real transfer](https://github.com/tayalmanan28/my_blogs/blob/master/images/sim2real-transfer.png)
 
 # What is Domain Randomization?
 To make the definition more general, let us call the environment that we have full access to (i.e. simulator) **source domain** and the environment that we would like to transfer the model to **target domain** (i.e. physical world). Training happens in the source domain. We can control a set of $N$ randomization parameters in the source domain $e_\xi$ with a configuration $\xi$, sampled from a randomization space, $\xi \in \Xi \subset \mathbb{R}^N$.
@@ -41,7 +41,7 @@ The randomization parameters can control appearances of the scene, including but
 - Random noise added to images,
 - Position, orientation, and field of view of the camera in the simulator.
 
-![DR](../images/DR.png)
+![DR](https://github.com/tayalmanan28/my_blogs/blob/master/images/DR.png)
 
 Physical dynamics in the simulator can also be randomized ([Peng et al. 2018](https://arxiv.org/abs/1710.06537)). Studies have showed that a recurrent policy can adapt to different physical dynamics including the partially observable reality. A set of physical dynamics features include but are not limited to:
 - Mass and dimensions of objects,
@@ -83,7 +83,7 @@ One motivation for guided DR is to save computation resources by avoiding traini
 Say we train a family of policies with different randomization parameters $\xi \sim P_\phi(\xi)$, where $P_\xi$ is the distribution for $\xi$ parameterized by $\phi$. Later we decide to try every one of them on the downstream task in the target domain (i.e. control a robot in reality or evaluate on a validation set) to collect feedback. This feedback tells us how good a configuration $\xi$ is and provides signals for optimizing $\phi$.
 Inspired by [NAS](https://ai.google/research/pubs/pub45826), **AutoAugment** ([Cubuk, et al. 2018](https://arxiv.org/abs/1805.09501)) frames the problem of learning best data augmentation operations (i.e.  shearing, rotation, invert, etc.) for image classification as an RL problem. Note that AutoAugment is not proposed for sim2real transfer, but falls in the bucket of DR guided by task performance. Individual augmentation configuration is tested on the evaluation set and the performance improvement is used as a reward to train a PPO policy. This policy outputs different augmentation strategies for different datasets; for example, for CIFAR-10 AutoAugment mostly  picks color-based transformations, while ImageNet prefers geometric based.
 [Ruiz (2019)](https://arxiv.org/abs/1810.02513) considered the task feedback as reward in RL problem and proposed a RL-based method, named &ldquo;learning to simulate&rdquo;, for adjusting $\xi$. A policy is trained to predict $\xi$ using performance metrics on the validation data of the main task as rewards, which is modeled as a multivariate Gaussian. Overall the idea is similar to AutoAugment, applying NAS on data generation. According to their experiments, even if the main task model is not converged, it still can provide a reasonable signal to the data generation policy.
-![learning-to-simulate.png](../images/learning-to-simulate.png)
+![learning-to-simulate.png](https://github.com/tayalmanan28/my_blogs/blob/master/images/learning-to-simulate.png)
 
 Evolutionary algorithm is another way to go, where the feedback is treated as fitness for guiding evolution ([Yu et al, 2019](https://openreview.net/forum?id=H1g6osRcFQ)). In this study, they used [CMA-ES](https://en.wikipedia.org/wiki/CMA-ES) (covariance matrix adaptation evolution strategy) while fitness is the performance of a $\xi$-conditional policy in target environment. In the appendix, they compared CMA-ES with other ways of modeling the dynamics of $\xi$, including Bayesian optimization or a neural network. The main claim was those methods are not as stable or sample efficient as CMA-ES. Interestly, when modeling $P(\xi)$ as a neural network, LSTM is found to notably outperform FF.
 Some believe that sim2real gap is a combination of appearance gap and content gap; i.e. most GAN-inspired DA models focus on appearance gap. **Meta-Sim** ([Kar, et al. 2019](https://arxiv.org/abs/1904.11621)) aims to close the content gap by generating task-specific synthetic datasets. Meta-Sim uses self-driving car training as an example and thus the scene could be very complicated. In this case, the synthetic scenes are parameterized by a hierarchy of objects with properties (i.e., location, color) as well as relationships between objects. The hierarchy is specified by a probabilistic scene grammar akin to structure domain randomization (**SDR**; [Prakash et al., 2018](https://arxiv.org/abs/1810.10093)) and it is assumed to be known beforehand. A model $G$ is trained to augment the distribution of scene properties $s$ by following:
@@ -104,11 +104,11 @@ $$
 
 where $D(.)$ is a trajectory-based discrepancy measure. Like the &ldquo;Learning to simulate&rdquo; paper, SimOpt also has to solve the tricky problem of how to propagate gradient through non-differentiable simulator. It used a method called [relative entropy policy search](https://www.aaai.org/ocs/index.php/AAAI/AAAI10/paper/viewFile/1851/2264), see paper for more details.
 
-![simopt.png](../images/simopt.png)
+![simopt.png](https://github.com/tayalmanan28/my_blogs/blob/master/images/simopt.png)
 
 **RCAN** ([James et al., 2019](https://arxiv.org/abs/1812.07252)), short for &ldquo;Randomized-to-Canonical Adaptation Networks&rdquo;, is a nice combination of DA and DR for end-to-end RL tasks. An image-conditional GAN ([cGAN](https://arxiv.org/abs/1611.07004)) is trained in sim to translate a domain-randomized image into a non-randomized version (aka &ldquo;canonical version&rdquo;). Later the same model is used to translate real images into corresponding simulated version so that the agent would consume consistent observation as what it has encountered in training. Still, the underlying assumption is that the distribution of domain-randomized sim images is broad enough to cover real-world samples.
 
-![RCAN](../images/RCAN.png)
+![RCAN](https://github.com/tayalmanan28/my_blogs/blob/master/images/RCAN.png)
 
 The RL model is trained end-to-end in a simulator to do vision-based robot arm grasping. Randomization is applied at each timestep, including the position of tray divider, objects to grasp, random textures, as well as the position, direction, and color of the lighting. The canonical version is the default simulator look. RCAN is trying to learn a generator
 $G$: randomized image $\to$ {canonical image, segmentation, depth}
@@ -122,12 +122,12 @@ The training involves two steps:
 - With the recognition network fixed, maximize the difference between the prediction and the labels by applying reversed gradients during backpropagation.  So that the deception module can learn the most confusing tricks.
 - With the deception modules fixed, train the recognition network with input images altered.
 
-![deception-net.png](../images/deception-net.png)
+![deception-net.png](https://github.com/tayalmanan28/my_blogs/blob/master/images/deception-net.png)
 
 The feedback for training deception modules is provided by the downstream classifier. But rather than trying to maximize the task performance like the section above, the randomization modules aim to create harder cases. One big disadvantage is you need to manually design different deception modules for different datasets or tasks, making it not easily scalable. Given the fact that it is zero-shot, the results are still worse than SOTA DA methods on MNIST and LineMOD.
 Similarly, Active domain randomization (**ADR**; [Mehta et al., 2019](https://arxiv.org/abs/1904.04762)) also relies on sim data to create harder training samples. ADR searches for the most informative environment variations within the given randomization ranges, where the informativeness is measured as the discrepancies of policy rollouts in randomized and reference (original, non-randomized) environment instances. Sounds a bit like SimOpt? Well, noted that SimOpt measures the discrepancy between sim and real rollouts, while ADR measures between randomized and non-randomized sim, avoiding the expensive real data collection part.
 
-![ADR.png](../images/ADR.png)
+![ADR.png](https://github.com/tayalmanan28/my_blogs/blob/master/images/ADR.png)
 
 Precisely the training happens as follows:
 - Given a policy, run it on both reference and randomized envs and collect two sets of trajectories respectively.
