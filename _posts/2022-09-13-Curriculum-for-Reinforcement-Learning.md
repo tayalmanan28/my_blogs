@@ -1,10 +1,10 @@
 ---
 toc: true
 layout: post
-description: Describing a robot with URDF.
+description: Curriculum for Reinforcement Learning.
 image: images/rpi.png
 categories: [Robotics]
-title: Introduction to URDF
+title: Curriculum for Reinforcement Learning
 ---
 
 It sounds like an impossible task if we want to teach integral or derivative to a 3-year-old who does not even know basic arithmetics. That&rsquo;s why education is important, as it provides a systematic way to break down complex knowledge and a nice curriculum for teaching concepts from simple to hard. A curriculum makes learning difficult things easier and approachable for us humans. But, how about machine learning models? Can we train our models more efficiently with a curriculum? Can we design a curriculum to speed up learning?
@@ -31,7 +31,7 @@ Fig. 2. Image classification accuracy on test image set (5 member classes of "sm
 [Zaremba and Sutskever (2014)](https://arxiv.org/abs/1410.4615) did an interesting experiment on training LSTM to predict the output of a short Python program for mathematical ops without actually executing the code. They found curriculum is necessary for learning. The program's complexity is controlled by two parameters, `length` ∈ [1, a] and `nesting`∈ [1, b]. Three strategies are considered:
 
 - Naive curriculum: increase <code>length</code> first until reaching <code>a</code>; then increase <code>nesting</code> and reset <code>length</code> to 1; repeat this process until both reach maximum.
-- Mix curriculum: sample <code>length</code> ~ [1, a] and <code>nesting</code> ~ [1, b]
+- Mix curriculum: sample <code>length</code> ~ [1, a] and `nesting` ~ [1, b]
 - Combined: naive + mix.
 
 They noticed that combined strategy always outperformed the naive curriculum and would generally (but not always) outperform the mix strategy &mdash; indicating that it is quite important to mix in easy tasks during training to _avoid forgetting_.
