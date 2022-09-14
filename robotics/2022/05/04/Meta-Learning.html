@@ -114,12 +114,16 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h2"><a href="#define-the-meta-learning-problem">Define the Meta-Learning Problem</a></li>
+<li class="toc-entry toc-h1"><a href="#define-the-meta-learning-problem">Define the Meta-Learning Problem</a>
+<ul>
 <li class="toc-entry toc-h2"><a href="#a-simple-view">A Simple View</a></li>
 <li class="toc-entry toc-h2"><a href="#training-in-the-same-way-as-testing">Training in the Same Way as Testing</a></li>
 <li class="toc-entry toc-h2"><a href="#learner-and-meta-learner">Learner and Meta-Learner</a></li>
 <li class="toc-entry toc-h2"><a href="#common-approaches">Common Approaches</a></li>
-<li class="toc-entry toc-h2"><a href="#metric-based">Metric-Based</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#metric-based">Metric-Based</a>
+<ul>
 <li class="toc-entry toc-h2"><a href="#convolutional-siamese-neural-network">Convolutional Siamese Neural Network</a></li>
 <li class="toc-entry toc-h2"><a href="#matching-networks">Matching Networks</a>
 <ul>
@@ -129,7 +133,10 @@ window.onload = wrap_img;
 </li>
 <li class="toc-entry toc-h2"><a href="#relation-network">Relation Network</a></li>
 <li class="toc-entry toc-h2"><a href="#prototypical-networks">Prototypical Networks</a></li>
-<li class="toc-entry toc-h2"><a href="#model-based">Model-Based</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#model-based">Model-Based</a>
+<ul>
 <li class="toc-entry toc-h2"><a href="#memory-augmented-neural-networks">Memory-Augmented Neural Networks</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#mann-for-meta-learning">MANN for Meta-Learning</a></li>
@@ -143,7 +150,10 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#training-process">Training Process</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#optimization-based">Optimization-Based</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#optimization-based">Optimization-Based</a>
+<ul>
 <li class="toc-entry toc-h2"><a href="#lstm-meta-learner">LSTM Meta-Learner</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#why-lstm">Why LSTM?</a></li>
@@ -161,6 +171,8 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#reptile-vs-fomaml">Reptile vs FOMAML</a></li>
 </ul>
 </li>
+</ul>
+</li>
 </ul><p>A good machine learning model often requires training with a large number of samples. Humans, in contrast, learn new concepts and skills much faster and more efficiently. Kids who have seen cats and birds only a few times can quickly tell them apart. People who know how to ride a bike are likely to discover the way to ride a motorcycle fast with little or even no demonstration. Is it possible to design a machine learning model with similar properties - learning new concepts and skills fast with a few training examples? That’s essentially what <strong>meta-learning</strong> aims to solve.</p>
 
 <p>We expect a good meta-learning model capable of well adapting or generalizing to new tasks and new environments that have never been encountered during training time. The adaptation process, essentially a mini learning session, happens during test but with a limited exposure to the new task configurations. Eventually, the adapted model can complete new tasks. This is why meta-learning is also known as <a href="https://www.cs.cmu.edu/~rsalakhu/papers/LakeEtAl2015Science.pdf">learning to learn</a>.</p>
@@ -173,8 +185,8 @@ window.onload = wrap_img;
   <li>A mini robot completes the desired task on an uphill surface during test even through it was only trained in a flat surface environment.</li>
 </ul>
 
-<h2 id="define-the-meta-learning-problem">
-<a class="anchor" href="#define-the-meta-learning-problem" aria-hidden="true"><span class="octicon octicon-link"></span></a>Define the Meta-Learning Problem</h2>
+<h1 id="define-the-meta-learning-problem">
+<a class="anchor" href="#define-the-meta-learning-problem" aria-hidden="true"><span class="octicon octicon-link"></span></a>Define the Meta-Learning Problem</h1>
 
 <p>In this post, we focus on the case when each desired task is a supervised learning problem like image classification. There is a lot of interesting literature on meta-learning with reinforcement learning problems (aka “Meta Reinforcement Learning”), but we would not cover them here.</p>
 
@@ -265,8 +277,8 @@ window.onload = wrap_img;
 
 <p>Next we are gonna review classic models in each approach.</p>
 
-<h2 id="metric-based">
-<a class="anchor" href="#metric-based" aria-hidden="true"><span class="octicon octicon-link"></span></a>Metric-Based</h2>
+<h1 id="metric-based">
+<a class="anchor" href="#metric-based" aria-hidden="true"><span class="octicon octicon-link"></span></a>Metric-Based</h1>
 
 <p>The core idea in metric-based meta-learning is similar to nearest neighbors algorithms (i.e., <a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">k-NN</a> classificer and <a href="https://en.wikipedia.org/wiki/K-means_clustering">k-means</a> clustering) and <a href="https://en.wikipedia.org/wiki/Kernel_density_estimation">kernel density estimation</a>. The predicted probability over a set of known labels $y$ is a weighted sum of labels of support set samples. The weight is generated by a kernel function $k_\theta$, measuring the similarity between two data samples.</p>
 
@@ -397,8 +409,8 @@ window.onload = wrap_img;
 
 <p>The loss function is the negative log-likelihood: $\mathcal{L}(\theta) = -\log P_\theta(y=c\vert\mathbf{x})$.</p>
 
-<h2 id="model-based">
-<a class="anchor" href="#model-based" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model-Based</h2>
+<h1 id="model-based">
+<a class="anchor" href="#model-based" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model-Based</h1>
 
 <p>Model-based meta-learning models make no assumption on the form of $P_\theta(y\vert\mathbf{x})$. Rather it depends on a model designed specifically for fast learning — a model that updates its parameters rapidly with a few training steps. This rapid parameter update can be achieved by its internal architecture or controlled by another meta-learner model.</p>
 
@@ -566,8 +578,8 @@ a_j &amp;= \text{cosine}(\mathbf{R}, r_j) = [\frac{r'_1\cdot r_j}{\|r'_1\|\cdot\
   </li>
 </ol>
 
-<h2 id="optimization-based">
-<a class="anchor" href="#optimization-based" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimization-Based</h2>
+<h1 id="optimization-based">
+<a class="anchor" href="#optimization-based" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimization-Based</h1>
 
 <p>Deep learning models learn through backpropagation of gradients. However, the gradient-based optimization is neither designed to cope with a small number of training samples, nor to converge within a small number of optimization steps. Is there a way to adjust the optimization algorithm so that the model can be good at learning with a few examples? This is what optimization-based approach meta-learning algorithms intend for.</p>
 
