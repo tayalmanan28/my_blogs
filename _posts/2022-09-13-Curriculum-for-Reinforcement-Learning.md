@@ -72,9 +72,10 @@ Training the teacher model is to solve a [POMDP](https://en.wikipedia.org/wiki/P
 The method of estimating learning progress from noisy task scores while balancing exploration vs exploitation can be borrowed from the non-stationary multi-armed bandit problem - use [ε-greedy](https://lilianweng.github.io/posts/2018-01-23-multi-armed-bandit/#%CE%B5-greedy-algorithm), or [Thompson sampling](https://lilianweng.github.io/posts/2018-01-23-multi-armed-bandit/#thompson-sampling).
 The core idea, in summary, is to use one policy to propose tasks for another policy to learn better. Interestingly, both works above (in the discrete task space) found that uniformly sampling from all tasks is a surprisingly strong benchmark.
 What if the task space is continuous? [Portelas, et al. (2019)](https://arxiv.org/abs/1910.07224) studied a continuous teacher-student framework, where the teacher has to sample parameters from continuous task space to generate a learning curriculum. Given a newly sampled parameter $p$, the absolute learning progress (short for ALP) is measured as $\text{ALP}\_p = \vert r - r_\text{old} \vert $, where $r$ is the episodic reward associated with $p$ and $r_\text{old}$ is the reward associated with $p_\text{old}$. Here, $p_\text{old}$ is a previous sampled parameter closest to $p$ in the task space, which can be retrieved by nearest neighbor. Note that how this ALP score is different from learning signals in TSCL or Grave, et al. 2017 above: ALP score measures the reward difference between two tasks rather than performance at two time steps of the same task.
-On top of the task parameter space, a Gaussian mixture model is trained to fit the distribution of $$ \text{ALP}_p $$ over $p$. ε-greedy is used when sampling the tasks: with some probability, sampling a random task; otherwise sampling proportionally to ALP score from the GMM model.
+On top of the task parameter space, a Gaussian mixture model is trained to fit the distribution of $ \text{ALP}\_p $ over $p$. ε-greedy is used when sampling the tasks: with some probability, sampling a random task; otherwise sampling proportionally to ALP score from the GMM model.
 ![](https://tayalmanan28.github.io/my_blogs/images/ALP-GMM-algorithm.png)
-Fig. 4. The algorithm of ALP-GMM (absolute learning progress Gaussian mixture model). (Image source: <a href="https://arxiv.org/abs/1910.07224" target="_blank">Portelas, et al., 2019</a>)
+Fig. 4. The algorithm of ALP-GMM (absolute learning progress Gaussian mixture model). (Image source: [Portelas, et al., 2019](https://arxiv.org/abs/1910.07224))
+
 ## Curriculum through Self-Play
 Different from the teacher-student framework, two agents are doing very different things. The teacher learns to pick a task for the student without any knowledge of the actual task content. What if we want to make both train on the main task directly? How about even make them compete with each other?
 [Sukhbaatar, et al. (2017)](https://arxiv.org/abs/1703.05407) proposed a framework for automatic curriculum learning through **asymmetric self-play**. Two agents, Alice and Bob, play the same task with different goals: Alice challenges Bob to achieve the same state and Bob attempts to complete it as fast as he can.
@@ -94,10 +95,11 @@ Both policies are goal-conditioned. The losses imply:
 - A does not want to take too many steps when B is failing.
 
 In this way, the interaction between Alice and Bob automatically builds a curriculum of increasingly challenging tasks. Meanwhile, as A has done the task herself before proposing the task to B, the task is guaranteed to be solvable.
-The paradigm of A suggesting tasks and then B solving them does sound similar to the Teacher-Student framework. However, in asymmetric self-play, Alice, who plays a teacher role, also works on the same task to find challenging cases for Bob, rather than optimizes B&rsquo;s learning process explicitly.</p>
+The paradigm of A suggesting tasks and then B solving them does sound similar to the Teacher-Student framework. However, in asymmetric self-play, Alice, who plays a teacher role, also works on the same task to find challenging cases for Bob, rather than optimizes B&rsquo;s learning process explicitly.
+
 ## Automatic Goal Generation
 Often RL policy needs to be able to perform over a set of tasks. The goal should be carefully chosen so that at every training stage, it would not be too hard or too easy for the current policy. A goal $g \in \mathcal{G}$ can be defined as a set of states $S^g$ and a goal is considered as achieved whenever an agent arrives at any of those states.
-The approach of Generative Goal Learning (<a href="https://arxiv.org/abs/1705.06366">Florensa, et al. 2018</a>) relies on a <strong>Goal GAN</strong> to generate desired goals automatically. In their experiment, the reward is very sparse, just a binary flag for whether a goal is achieved or not and the policy is conditioned on goal,
+The approach of Generative Goal Learning (<a href="https://arxiv.org/abs/1705.06366">Florensa, et al. 2018</a>) relies on a **Goal GAN** to generate desired goals automatically. In their experiment, the reward is very sparse, just a binary flag for whether a goal is achieved or not and the policy is conditioned on goal,
 
 $$
 \begin{aligned}
@@ -112,7 +114,7 @@ Their approach iterates through 3 steps until the policy converges:
 - Label a set of goals based on whether they are at the appropriate level of difficulty for the current policy.</li>
 
 
-- The set of goals at the appropriate level of difficulty are named <strong>GOID</strong> (short for &ldquo;Goals of Intermediate Difficulty&rdquo;).<br/>$\text{GOID}_i := \{g : R_\text{min} \leq R^g(\pi_i) \leq R_\text{max} \} \subseteq G$</li>
+- The set of goals at the appropriate level of difficulty are named <strong>GOID</strong> (short for &ldquo;Goals of Intermediate Difficulty&rdquo;).<br/>$\text{GOID}\_i := \{g : R_\text{min} \leq R^g(\pi_i) \leq R_\text{max} \} \subseteq G$</li>
 - Here $R_\text{min}$ and $R_\text{max}$ can be interpreted as a minimum and maximum probability of reaching a goal over T time-steps.</li>
 
 - Train a Goal GAN model using labelled goals from step 1 to produce new goals
@@ -132,8 +134,8 @@ $$
 \end{aligned}
 $$
 
-where $a$ is the label for fake data, $b$ for real data, and $c$ is the value that $G$ wants $D$ to believe for fake data. In LSGAN paper&rsquo;s experiments, they used $a=-1, b=1, c=0$.
-The Goal GAN introduces an extra binary flag $y_b$ indicating whether a goal $g$ is real ($y_g = 1$) or fake ($y_g = 0$) so that the model can use negative samples for training:
+where $a$ is the label for fake data, $b$ for real data, and $c$ is the value that $G$ wants $D$ to believe for fake data. In LSGAN paper's experiments, they used $a=-1, b=1, c=0$.
+The Goal GAN introduces an extra binary flag $y_b$ indicating whether a goal $g$ is real ($y_{g} = 1$) or fake ($y_{g} = 0$) so that the model can use negative samples for training:
 
 $$
 \begin{aligned}
@@ -228,7 +230,7 @@ I(\tau; z)
 \end{aligned}
 $$
 
-We can set the reward as $\log q_\phi(s \vert z) - \log q_\phi(s)$, as shown in the <span style="color: green;">red</span> part in the equation above. In order to balance between task-specific exploration (as in <span style="color: red;">red</span> below) and latent skill matching (as in <span style="color: blue;">blue</span> below) , a parameter $\lambda \in [0, 1]$ is added. Each realization of $z \sim q_\phi(z)$ induces a reward function $r_z(s)$ (remember that reward + CMP =&gt; MDP) as follows:
+We can set the reward as $\log q_\phi(s \vert z) - \log q_\phi(s)$, as shown in the <span style="color: green;">green</span> part in the equation above. In order to balance between task-specific exploration (as in <span style="color: red;">red</span> below) and latent skill matching (as in <span style="color: blue;">blue</span> below) , a parameter $\lambda \in [0, 1]$ is added. Each realization of $z \sim q_\phi(z)$ induces a reward function $r_z(s)$ (remember that reward + CMP =&gt; MDP) as follows:
 
 $$
 \begin{aligned}
@@ -242,7 +244,7 @@ $$
 
 ![](https://tayalmanan28.github.io/my_blogs/images/CARML-algorithm.png)
 Fig. 9. The algorithm of CARML. (Image source: <a href="https://arxiv.org/abs/1912.04226" target="_blank">Jabri, et al 2019</a>)
-Learning a latent skill space can be done in different ways, such as in <a href="https://openreview.net/forum?id=rk07ZXZRb">Hausman, et al. 2018</a>. The goal of their approach is to learn a task-conditioned policy, $\pi(a \vert s, t^{(i)})$, where $t^{(i)}$ is from a discrete list of $N$ tasks, $\mathcal{T} = [t^{(1)}, \dots, t^{(N)}]$. However, rather than learning $N$ separate solutions, one per task, it would be nice to learn a latent skill space so that each task could be represented in a distribution over skills and thus skills are <em>reused between tasks</em>. The policy is defined as $\pi_\theta(a \vert s,t) = \int \pi_\theta(a \vert z,s,t) p_\phi(z \vert t)\mathrm{d}z$, where $\pi_\theta$ and $p_\phi$ are policy and embedding networks to learn, respectively. If $z$ is discrete, i.e. drawn from a set of $K$ skills, then the policy becomes a mixture of $K$ sub-policies. The policy training uses <a href="http://127.0.0.1:4000/lil-log/2018/04/07/policy-gradient-algorithms.html#sac">SAC</a> and the dependency on $z$ is introduced in the entropy term.</p>
+Learning a latent skill space can be done in different ways, such as in <a href="https://openreview.net/forum?id=rk07ZXZRb">Hausman, et al. 2018</a>. The goal of their approach is to learn a task-conditioned policy, $\pi(a \vert s, t^{(i)})$, where $t^{(i)}$ is from a discrete list of $N$ tasks, $\mathcal{T} = [t^{(1)}, \dots, t^{(N)}]$. However, rather than learning $N$ separate solutions, one per task, it would be nice to learn a latent skill space so that each task could be represented in a distribution over skills and thus skills are <em>reused between tasks</em>. The policy is defined as $\pi_\theta(a \vert s,t) = \int \pi_\theta(a \vert z,s,t) p_\phi(z \vert t)\mathrm{d}z$, where $\pi_\theta$ and $p_\phi$ are policy and embedding networks to learn, respectively. If $z$ is discrete, i.e. drawn from a set of $K$ skills, then the policy becomes a mixture of $K$ sub-policies. The policy training uses SAC and the dependency on $z$ is introduced in the entropy term.
 Curriculum through Distillation
 The motivation for the **progressive neural network** ([Rusu et al. 2016](https://arxiv.org/abs/1606.04671)) architecture is to efficiently transfer learned skills between different tasks and in the meantime avoid catastrophic forgetting. The curriculum is realized through a set of progressively stacked neural network towers (or "columns", as in the paper).
 A progressive network has the following structure:
