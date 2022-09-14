@@ -2,7 +2,7 @@
 toc: true
 layout: post
 description: Domain Randomization.
-image: images/rpi.png
+image: images/DR.png
 categories: [Raspberry-Pi,Robotics]
 title: Domain Randomization
 ---
