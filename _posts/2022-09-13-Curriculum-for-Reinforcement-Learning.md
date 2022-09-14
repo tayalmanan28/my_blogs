@@ -2,7 +2,7 @@
 toc: true
 layout: post
 description: Curriculum for Reinforcement Learning.
-image: images/rpi.png
+image: images/types-of-curriculum-2.png
 categories: [Robotics]
 title: Curriculum for Reinforcement Learning
 ---
