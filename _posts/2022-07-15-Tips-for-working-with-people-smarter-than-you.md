@@ -2,7 +2,7 @@
 toc: true
 layout: post
 description: Being surrounded by geniuses is great in theory but sometimes tough in practice. Here's how to reap the benefits without succumbing to self-doubt.
-image: images/tm.png
+image: images/smarter.jpg
 categories: [Self Development,Management]
 title: Some Tips for working with people who are smarter than you
 ---
