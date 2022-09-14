@@ -21,7 +21,7 @@ To close the sim2real gap, we need to improve the simulator and make it closer t
     - Likely this model can adapt to the real-world environment, as the real system is expected to be one sample in that rich distribution of training variations.
 
 Both DA and DR are unsupervised. Compared to DA which requires a decent amount of real data samples to capture the distribution, DR may need only a little or no real data. DR is the focus of this post.
-![Conceptual illustrations of three approaches for sim2real transfer](./images/sim2real-transfer.png)
+![Conceptual illustrations of three approaches for sim2real transfer](../images/sim2real-transfer.png)
 
 # What is Domain Randomization?
 To make the definition more general, let us call the environment that we have full access to (i.e. simulator) **source domain** and the environment that we would like to transfer the model to **target domain** (i.e. physical world). Training happens in the source domain. We can control a set of $N$ randomization parameters in the source domain $e_\xi$ with a configuration $\xi$, sampled from a randomization space, $\xi \in \Xi \subset \mathbb{R}^N$.
