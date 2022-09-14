@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Introduction to URDF | Manan Tayal</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Introduction to URDF" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Describing a robot with URDF." />
+<meta property="og:description" content="Describing a robot with URDF." />
+<link rel="canonical" href="https://tayalmanan28.github.io/my_blogs/2020-05-16-Introduction-to-URDF.html" />
+<meta property="og:url" content="https://tayalmanan28.github.io/my_blogs/2020-05-16-Introduction-to-URDF.html" />
+<meta property="og:site_name" content="Manan Tayal" />
+<meta property="og:image" content="https://tayalmanan28.github.io/my_blogs/images/rpi.png" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://tayalmanan28.github.io/my_blogs/images/rpi.png" />
+<meta property="twitter:title" content="Introduction to URDF" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Describing a robot with URDF.","headline":"Introduction to URDF","image":"https://tayalmanan28.github.io/my_blogs/images/rpi.png","url":"https://tayalmanan28.github.io/my_blogs/2020-05-16-Introduction-to-URDF.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/my_blogs/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://tayalmanan28.github.io/my_blogs/feed.xml" title="Manan Tayal" /><link rel="shortcut icon" type="image/x-icon" href="/my_blogs/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/my_blogs/">Manan Tayal</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/my_blogs/2020-05-16-Introduction-to-URDF.html">Introduction to URDF</a><a class="page-link" href="/my_blogs/search/">Search</a><a class="page-link" href="/my_blogs/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Introduction to URDF</h1><p class="page-description">Describing a robot with URDF.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="" itemprop="datePublished">
+        
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      8 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/my_blogs/categories/#Robotics">Robotics</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#describing-a-robot">Describing a Robot</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#overall-structure---links-and-joints">Overall structure - Links and Joints</a></li>
+<li class="toc-entry toc-h2"><a href="#the-urdf-syntax">The URDF Syntax</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#the-robot-tag-and-xml-declaration">The robot tag and XML declaration</a></li>
+<li class="toc-entry toc-h3"><a href="#link-tags">Link tags</a></li>
+<li class="toc-entry toc-h3"><a href="#joint-tags">Joint tags</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#extra-tags">Extra Tags</a></li>
+<li class="toc-entry toc-h2"><a href="#naming-conventions">Naming conventions</a></li>
+<li class="toc-entry toc-h2"><a href="#credits">Credits</a></li>
+</ul>
+</li>
+</ul><h1 id="describing-a-robot">
+<a class="anchor" href="#describing-a-robot" aria-hidden="true"><span class="octicon octicon-link"></span></a>Describing a Robot</h1>
+
+<p>When we create a robotic system, there may be many different software components that need to know about the physical characteristics of the robot. For consistency and simplicity, it is good to keep all of this information in one common location, where any code can reference it.
+In ROS, we call this the robot description and the information is stored in a URDF (Unified Robot Description Format) file. We encountered URDF files briefly in the last tutorial and in this one we’re going to dig deeper into how to write our own.
+When we open up a complete URDF file it can look REALLY confusing - they are usually long, with a lot of symbols and words and it can be overwhelming. But if we take a moment to look more closely and break it down, we see that it is made up of a few simple structures repeated over and over. We’ll take a look at these structures and then go through an example file.</p>
+
+<h2 id="overall-structure---links-and-joints">
+<a class="anchor" href="#overall-structure---links-and-joints" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overall structure - Links and Joints</h2>
+<p>URDF describes a robot as a tree of links, that are connected by joints. The links represent the physical components of the robot, and the joints represent how one link moves relative to another link, effectively defining the location of the links in space.</p>
+
+<p>When we write our URDF file we need to figure out how to split the robot up sensibly into links (and joints). There are two main reasons we would designate a link/joint:</p>
+
+<ul>
+  <li>A part of the robot is moving relative to another part (e.g. each segment of a robotic arm)</li>
+  <li>A part that is not moving relative to another part, but it is convenient to have its own reference point and transform (a common example would be the location of a sensor such as a camera or lidar)</li>
+</ul>
+
+<p>To cover these scenarios, when we define a joint (the connection between two links) we need to choose what type of joint it is. There are quite a few types, but the most common are:</p>
+
+<ul>
+  <li>Revolute - A rotational motion, with minimum/maximum angle limits.</li>
+  <li>Continuous - A rotational motion with no limit (e.g. a wheel).</li>
+  <li>Prismatic - A linear sliding motion, with minimum/maximum position limits.</li>
+  <li>Fixed - The child link is rigidly connected to the parent link. This is what we use for those “convenience” links.</li>
+</ul>
+
+<p>To understand these a little better, let’s dive into the actual format of URDF.</p>
+
+<h2 id="the-urdf-syntax">
+<a class="anchor" href="#the-urdf-syntax" aria-hidden="true"><span class="octicon octicon-link"></span></a>The URDF Syntax</h2>
+<p>URDF is based on XML, so everything is represented as a series of tags, which can be nested. There are many different tags we can use, but there are three main ones we need to know about.</p>
+
+<h3 id="the-robot-tag-and-xml-declaration">
+<a class="anchor" href="#the-robot-tag-and-xml-declaration" aria-hidden="true"><span class="octicon octicon-link"></span></a>The robot tag and XML declaration</h3>
+<p>A proper XML file should have an XML declaration/prolog in the first line, and then after that will be a single tag (called the root tag), which ALL the other tags live inside of. For a URDF file, this root tag will be the robot tag, and the only thing to note here for now is that we can set the name attribute which lets us (unsurprisingly) specify the name of our robot.</p>
+
+<h3 id="link-tags">
+<a class="anchor" href="#link-tags" aria-hidden="true"><span class="octicon octicon-link"></span></a>Link tags</h3>
+<p>A link tag lets us firstly specify the name of a link, as well as some additional characteristics - the visual, collision, and inertial properties. These additional tags are generally optional, however they will be required for certain situations such as simulations (which we’ll cover in a later tutorial).</p>
+
+<ul>
+  <li>Visual - This is what we see in RViz and Gazebo. We can specify three aspects:</li>
+  <li>Geometry - box/ cylinder / sphere with size parameters, or a mesh</li>
+  <li>Origin - an offset for the geometry so it doesn’t need to be centred around the link origin</li>
+  <li>Material - Basically, the colour. We can specify the name of a declared material, or describe the colour directly. (Note that this will set the colour in RViz but not Gazebo, more on that in the next tutorial)</li>
+  <li>Collision - This is used for physics collision calculations. We can set the:</li>
+  <li>Geometry and Origin - Same options as for visual. This will often be copy-pasted from the Visual tag, however we may want a simpler collision geometry (e.g. box instead of a mesh) for computational reasons.</li>
+  <li>Inertial - This is also used for physics calculations, but determines how the link responds to forces. The inertial properties are:</li>
+  <li>Mass - Mass of the link</li>
+  <li>Origin - The centre of mass (a.k.a centre of gravity). This is the point the link could “balance” on (a slightly more confusing concept in 3D). For most simple cases this will just be the centre (same origin as visual/collision).</li>
+  <li>Inertia - The rotational inertia matrix. This is probably the most confusing part of this section. It describes how the distribution of the mass will affect rotation. A list of the matrices for common shapes is available here. A fairly accurate simulation can be achieved by approximating our links as prisms, ellipsoids, or cylinders, however for most purposes a very rough guess will do. Also, don’t get inertial and inertia mixed up - the inertia matrix is just one part of the inertial properties.</li>
+</ul>
+
+<p>Unless we are designing a very precise controller, there will be a fair bit of wiggle room in these parameters, especially the inertial ones. And remember, not every link needs all of these! Also, we can have multiple visual and collision tags for a single link if we want, so we can combine them to make more complex shapes.</p>
+
+<p>This image shows the overall structure of a link tag, at the end of the tutorial we’ll look in more detail at a working example.</p>
+
+<h3 id="joint-tags">
+<a class="anchor" href="#joint-tags" aria-hidden="true"><span class="octicon octicon-link"></span></a>Joint tags</h3>
+
+<p>Although we usually think of the robot as being made up of links, the joints are actually where all the detail is in terms of the robot’s structure, as they define the link locations, and how they move relative to each other. This is similar to the previous tutorial on the TF system, where although we ultimately want to interact with frames, it’s actually the transforms that define where the frames are, so it’s important to get them right.</p>
+
+<p>Each joint will need to have the following specified:</p>
+
+<ul>
+  <li>Name - A name for the joint. If we don’t have this, some things will still work, but other things won’t. It’s good to name them all just in case.</li>
+  <li>Type - The joint type as mentioned earlier (the four most popular being fixed, prismatic, revolute, and continuous).</li>
+  <li>Parent and child links - Which links this joint defines a relationship between</li>
+  <li>Origin - The relationship between the two links, before any motion is applied</li>
+</ul>
+
+<p>For a fixed joint these parameters will be sufficient, but for non-fixed joints we will usually want to specify some other characteristics. There are a few to choose from, but the two most common will be:</p>
+
+<ul>
+  <li>Axis - Which axis to move along or around</li>
+  <li>Limits - Physical actuation limits, which may be expected by other parts of the system. These can include:</li>
+  <li>Upper and Lower position limits - in metres/radians</li>
+  <li>Velocity limits - in m/s or rad/s</li>
+  <li>Effort limits - in N or Nm</li>
+</ul>
+
+<p>Below is a snippet of one of the joints that we’ll look at in the example at the end.</p>
+
+<h2 id="extra-tags">
+<a class="anchor" href="#extra-tags" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra Tags</h2>
+<p>The robot, link, and joint tags are the main tags that make up a URDF file, but we’re not just limited to these! There are a few other tags that are part of the URDF spec, but we can also add any other tags we like and they will just be ignored if not needed. Certain nodes will expect these extra tags and can make use of them.</p>
+
+<p>Some common extra tags that you might come across are:</p>
+
+<ul>
+  <li>material - Allows us to give a “name” to a colour once, and then reuse that name in as many links as we like</li>
+  <li>gazebo - Lets us specify certain parameters that are used in the Gazebo simulation environment (more on this in the next tutorial!)</li>
+  <li>transmission - Provides more detail about how the joints are driven by physical actuators</li>
+</ul>
+
+<h2 id="naming-conventions">
+<a class="anchor" href="#naming-conventions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naming conventions</h2>
+<p>We need to name all our links to work with them, however it’s good practice to name all our joints too. It’s also good to keep consistency within your naming by following conventions, whether these are conventions set by ROS or just our own ones. Some examples of naming conventions we can follow are:</p>
+
+<p>Keeping our links/joints paired, and using the suffix _link and _joint (e.g. arm_link and arm_joint)
+Following the ROS conventions for humanoid robots
+Following the ROS conventions for mobile platforms</p>
+
+<h2 id="credits">
+<a class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits</h2>
+
+<ul>
+  <li><a href="http://wiki.ros.org/urdf">ROS-URDF</a></li>
+  <li><a href="http://wiki.ros.org/urdf/Tutorials/Building%20a%20Visual%20Robot%20Model%20with%20URDF%20from%20Scratch">ROS-URDF Tutorials</a></li>
+</ul>
+
+  </div><a class="u-url" href="/my_blogs/2020-05-16-Introduction-to-URDF.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/my_blogs/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/my_blogs/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/my_blogs/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>I Write Blogs Related to Robotics</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/tayalmanan28" target="_blank" title="tayalmanan28"><svg class="svg-icon grey"><use xlink:href="/my_blogs/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/tayalmanan28" target="_blank" title="tayalmanan28"><svg class="svg-icon grey"><use xlink:href="/my_blogs/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
