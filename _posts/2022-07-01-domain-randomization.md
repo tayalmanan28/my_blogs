@@ -21,7 +21,7 @@ To close the sim2real gap, we need to improve the simulator and make it closer t
     - Likely this model can adapt to the real-world environment, as the real system is expected to be one sample in that rich distribution of training variations.
 
 Both DA and DR are unsupervised. Compared to DA which requires a decent amount of real data samples to capture the distribution, DR may need only a little or no real data. DR is the focus of this post.
-![Conceptual illustrations of three approaches for sim2real transfer](https://github.com/tayalmanan28/my_blogs/blob/master/images/sim2real-transfer.png)
+![Conceptual illustrations of three approaches for sim2real transfer](https://tayalmanan28.github.io/my_blogs/images/sim2real-transfer.png)
 
 # What is Domain Randomization?
 To make the definition more general, let us call the environment that we have full access to (i.e. simulator) **source domain** and the environment that we would like to transfer the model to **target domain** (i.e. physical world). Training happens in the source domain. We can control a set of $N$ randomization parameters in the source domain $e_\xi$ with a configuration $\xi$, sampled from a randomization space, $\xi \in \Xi \subset \mathbb{R}^N$.
@@ -41,7 +41,7 @@ The randomization parameters can control appearances of the scene, including but
 - Random noise added to images,
 - Position, orientation, and field of view of the camera in the simulator.
 
-![DR](https://github.com/tayalmanan28/my_blogs/blob/master/images/DR.png)
+![DR](https://tayalmanan28.github.io/my_blogs/images/DR.png)
 
 Physical dynamics in the simulator can also be randomized ([Peng et al. 2018](https://arxiv.org/abs/1710.06537)). Studies have showed that a recurrent policy can adapt to different physical dynamics including the partially observable reality. A set of physical dynamics features include but are not limited to:
 - Mass and dimensions of objects,
@@ -104,11 +104,11 @@ $$
 
 where $D(.)$ is a trajectory-based discrepancy measure. Like the &ldquo;Learning to simulate&rdquo; paper, SimOpt also has to solve the tricky problem of how to propagate gradient through non-differentiable simulator. It used a method called [relative entropy policy search](https://www.aaai.org/ocs/index.php/AAAI/AAAI10/paper/viewFile/1851/2264), see paper for more details.
 
-![simopt.png](https://github.com/tayalmanan28/my_blogs/blob/master/images/simopt.png)
+![simopt.png](https://tayalmanan28.github.io/my_blogs/images/simopt.png)
 
 **RCAN** ([James et al., 2019](https://arxiv.org/abs/1812.07252)), short for &ldquo;Randomized-to-Canonical Adaptation Networks&rdquo;, is a nice combination of DA and DR for end-to-end RL tasks. An image-conditional GAN ([cGAN](https://arxiv.org/abs/1611.07004)) is trained in sim to translate a domain-randomized image into a non-randomized version (aka &ldquo;canonical version&rdquo;). Later the same model is used to translate real images into corresponding simulated version so that the agent would consume consistent observation as what it has encountered in training. Still, the underlying assumption is that the distribution of domain-randomized sim images is broad enough to cover real-world samples.
 
-![RCAN](https://github.com/tayalmanan28/my_blogs/blob/master/images/RCAN.png)
+![RCAN](https://tayalmanan28.github.io/my_blogs/images/RCAN.png)
 
 The RL model is trained end-to-end in a simulator to do vision-based robot arm grasping. Randomization is applied at each timestep, including the position of tray divider, objects to grasp, random textures, as well as the position, direction, and color of the lighting. The canonical version is the default simulator look. RCAN is trying to learn a generator
 $G$: randomized image $\to$ {canonical image, segmentation, depth}
@@ -122,12 +122,12 @@ The training involves two steps:
 - With the recognition network fixed, maximize the difference between the prediction and the labels by applying reversed gradients during backpropagation.  So that the deception module can learn the most confusing tricks.
 - With the deception modules fixed, train the recognition network with input images altered.
 
-![deception-net.png](https://github.com/tayalmanan28/my_blogs/blob/master/images/deception-net.png)
+![deception-net.png](https://tayalmanan28.github.io/my_blogs/images/deception-net.png)
 
 The feedback for training deception modules is provided by the downstream classifier. But rather than trying to maximize the task performance like the section above, the randomization modules aim to create harder cases. One big disadvantage is you need to manually design different deception modules for different datasets or tasks, making it not easily scalable. Given the fact that it is zero-shot, the results are still worse than SOTA DA methods on MNIST and LineMOD.
 Similarly, Active domain randomization (**ADR**; [Mehta et al., 2019](https://arxiv.org/abs/1904.04762)) also relies on sim data to create harder training samples. ADR searches for the most informative environment variations within the given randomization ranges, where the informativeness is measured as the discrepancies of policy rollouts in randomized and reference (original, non-randomized) environment instances. Sounds a bit like SimOpt? Well, noted that SimOpt measures the discrepancy between sim and real rollouts, while ADR measures between randomized and non-randomized sim, avoiding the expensive real data collection part.
 
-![ADR.png](https://github.com/tayalmanan28/my_blogs/blob/master/images/ADR.png)
+![ADR.png](https://tayalmanan28.github.io/my_blogs/images/ADR.png)
 
 Precisely the training happens as follows:
 - Given a policy, run it on both reference and randomized envs and collect two sets of trajectories respectively.
