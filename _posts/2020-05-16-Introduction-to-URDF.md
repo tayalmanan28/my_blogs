@@ -2,7 +2,7 @@
 toc: true
 layout: post
 description: Describing a robot with URDF.
-image: images/rpi.png
+image: images/urdf.png
 categories: [Robotics]
 title: Introduction to URDF
 ---
