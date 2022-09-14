@@ -52,8 +52,14 @@ li .post-meta-description {
   .social-media-list li a, .pagination li a {
     display: block;
     padding: 7.5px;
-    border: 1px solid #ff9021;
+    border: 1px solid #24292e;
     
+  }
+
+  .pagination li a {
+    font-style: normal;
+    line-height: 20px;
+    color: #ff9021;
   }
 
 .page-description{
