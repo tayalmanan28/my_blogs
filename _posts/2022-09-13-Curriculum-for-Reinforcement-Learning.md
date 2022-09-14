@@ -11,7 +11,7 @@ It sounds like an impossible task if we want to teach integral or derivative to 
 Back in 1993, Jeffrey Elman has proposed the idea of training neural networks with a curriculum. His early work on learning simple language grammar demonstrated the importance of such a strategy: starting with a restricted set of simple data and gradually increasing the complexity of training samples; otherwise the model was not able to learn at all.
 Compared to training without a curriculum, we would expect the adoption of the curriculum to expedite the speed of convergence and may or may not improve the final model performance. To design an efficient and effective curriculum is not easy. Keep in mind that, a bad curriculum may even hamper learning.
 Next, we will look into several categories of curriculum learning, as illustrated in Fig. 1. Most cases are applied to Reinforcement Learning, with a few exceptions on Supervised Learning.
-types-of-curriculum-2.png
+[](https://tayalmanan28.github.io/my_blogs/images/types-of-curriculum-2.png)
 
 In "The importance of starting small" paper ([Elman 1993](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.128.4487&amp;rep=rep1&amp;type=pdf)), I especially like the starting sentences and find them both inspiring and affecting:
 
@@ -26,11 +26,12 @@ Indeed, learning is probably the best superpower we humans have.
 
 It is plausible that some curriculum strategies could be useless or even harmful. A good question to answer in the field is: _What could be the general principles that make some curriculum strategies work better than others?_ The Bengio 2009 paper hypothesized it would be beneficial to make learning focus on "interesting" examples that are neither too hard or too easy.
 If our naive curriculum is to train the model on samples with a gradually increasing level of complexity, we need a way to quantify the difficulty of a task first. One idea is to use its minimal loss with respect to another model while this model is pretrained on other tasks ([Weinshall, et al. 2018](href="https://arxiv.org/abs/1802.03796)). In this way, the knowledge of the pretrained model can be transferred to the new model by suggesting a rank of training samples. Fig. 2 shows the effectiveness of the `curriculum` group (green), compared to `control` (random order; yellow) and `anti` (reverse the order; red) groups.
-curriculum-by-transfer-learning.png
-Fig. 2. Image classification accuracy on test image set (5 member classes of "small mammals" in CIFAR100). There are 4 experimental groups, (a) `curriculum`: sort the labels by the confidence of another trained classifier (e.g. the margin of an SVM); (b) `control-curriculum`: sort the labels randomly; (c) `anti-curriculum`: sort the labels reversely; (d) `None`: no curriculum. (Image source: <a href="https://arxiv.org/abs/1802.03796" target="_blank">Weinshall, et al. 2018</a>)
+
+[](https://tayalmanan28.github.io/my_blogs/images/curriculum-by-transfer-learning.png)
+Fig. 2. Image classification accuracy on test image set (5 member classes of "small mammals" in CIFAR100). There are 4 experimental groups, (a) `curriculum`: sort the labels by the confidence of another trained classifier (e.g. the margin of an SVM); (b) `control-curriculum`: sort the labels randomly; (c) `anti-curriculum`: sort the labels reversely; (d) `None`: no curriculum. (Image source: [Weinshall, et al. 2018](https://arxiv.org/abs/1802.03796))
 [Zaremba and Sutskever (2014)](https://arxiv.org/abs/1410.4615) did an interesting experiment on training LSTM to predict the output of a short Python program for mathematical ops without actually executing the code. They found curriculum is necessary for learning. The program's complexity is controlled by two parameters, `length` ∈ [1, a] and `nesting`∈ [1, b]. Three strategies are considered:
 
-- Naive curriculum: increase <code>length</code> first until reaching <code>a</code>; then increase <code>nesting</code> and reset <code>length</code> to 1; repeat this process until both reach maximum.
+- Naive curriculum: increase `length` first until reaching `a`; then increase `nesting` and reset `length` to 1; repeat this process until both reach maximum.
 - Mix curriculum: sample <code>length</code> ~ [1, a] and `nesting` ~ [1, b]
 - Combined: naive + mix.
 
@@ -50,7 +51,8 @@ Two categories of learning signals have been considered in the paper:
 - Complex-driven progress: the KL divergence between posterior and prior distribution over network weights. This type of learning signals are inspired by the [MDL](https://en.wikipedia.org/wiki/Minimum_description_length) principle, increasing the model complexity by a certain amount is only worthwhile if it compresses the data by a greater amount. The model complexity is therefore expected to increase most in response to the model nicely generalizing to training examples.
 
 This framework of proposing curriculum automatically through another RL agent was formalized as _Teacher-Student Curriculum Learning_ (**TSCL**; [Matiisen, et al. 2017](https://arxiv.org/abs/1707.00183)). In TSCL, a _student_ is an RL agent working on actual tasks while a _teacher_ agent is a policy for selecting tasks. The student aims to master a complex task that might be hard to learn directly. To make this task easier to learn, we set up the teacher agent to guide the student's training process by picking proper sub-tasks.
-teacher-student-curriculum.png
+
+[](https://tayalmanan28.github.io/my_blogs/images/teacher-student-curriculum.png)
 Fig. 3. The setup of teacher-student curriculum learning. (Image source: <a href="https://arxiv.org/abs/1707.00183" target="_blank">Matiisen, et al. 2017</a> + my annotation in red.)
 In the process, the student should learn tasks which:
 
@@ -69,14 +71,14 @@ Training the teacher model is to solve a [POMDP](https://en.wikipedia.org/wiki/P
 
 The method of estimating learning progress from noisy task scores while balancing exploration vs exploitation can be borrowed from the non-stationary multi-armed bandit problem - use [ε-greedy](https://lilianweng.github.io/posts/2018-01-23-multi-armed-bandit/#%CE%B5-greedy-algorithm), or [Thompson sampling](https://lilianweng.github.io/posts/2018-01-23-multi-armed-bandit/#thompson-sampling).
 The core idea, in summary, is to use one policy to propose tasks for another policy to learn better. Interestingly, both works above (in the discrete task space) found that uniformly sampling from all tasks is a surprisingly strong benchmark.
-What if the task space is continuous? [Portelas, et al. (2019)](https://arxiv.org/abs/1910.07224) studied a continuous teacher-student framework, where the teacher has to sample parameters from continuous task space to generate a learning curriculum. Given a newly sampled parameter $p$, the absolute learning progress (short for ALP) is measured as $\text{ALP}_p = \vert r - r_\text{old} \vert$, where $r$ is the episodic reward associated with $p$ and $r_\text{old}$ is the reward associated with $p_\text{old}$. Here, $p_\text{old}$ is a previous sampled parameter closest to $p$ in the task space, which can be retrieved by nearest neighbor. Note that how this ALP score is different from learning signals in <a href="#TSCL">TSCL</a> or <a href="#grave-et-al-2017">Grave, et al. 2017</a> above: ALP score measures the reward difference between two tasks rather than performance at two time steps of the same task.
-On top of the task parameter space, a Gaussian mixture model is trained to fit the distribution of $\text{ALP}_p$ over $p$. ε-greedy is used when sampling the tasks: with some probability, sampling a random task; otherwise sampling proportionally to ALP score from the GMM model.
-ALP-GMM-algorithm.png
+What if the task space is continuous? [Portelas, et al. (2019)](https://arxiv.org/abs/1910.07224) studied a continuous teacher-student framework, where the teacher has to sample parameters from continuous task space to generate a learning curriculum. Given a newly sampled parameter $p$, the absolute learning progress (short for ALP) is measured as $ \text{ALP}_p = \vert r - r_\text{old} \vert $, where $r$ is the episodic reward associated with $p$ and $r_\text{old}$ is the reward associated with $p_\text{old}$. Here, $p_\text{old}$ is a previous sampled parameter closest to $p$ in the task space, which can be retrieved by nearest neighbor. Note that how this ALP score is different from learning signals in TSCL or Grave, et al. 2017 above: ALP score measures the reward difference between two tasks rather than performance at two time steps of the same task.
+On top of the task parameter space, a Gaussian mixture model is trained to fit the distribution of $\text{ALP}_p $ over $p$. ε-greedy is used when sampling the tasks: with some probability, sampling a random task; otherwise sampling proportionally to ALP score from the GMM model.
+[](https://tayalmanan28.github.io/my_blogs/images/ALP-GMM-algorithm.png)
 Fig. 4. The algorithm of ALP-GMM (absolute learning progress Gaussian mixture model). (Image source: <a href="https://arxiv.org/abs/1910.07224" target="_blank">Portelas, et al., 2019</a>)
 ## Curriculum through Self-Play
 Different from the teacher-student framework, two agents are doing very different things. The teacher learns to pick a task for the student without any knowledge of the actual task content. What if we want to make both train on the main task directly? How about even make them compete with each other?
 [Sukhbaatar, et al. (2017)](https://arxiv.org/abs/1703.05407) proposed a framework for automatic curriculum learning through **asymmetric self-play**. Two agents, Alice and Bob, play the same task with different goals: Alice challenges Bob to achieve the same state and Bob attempts to complete it as fast as he can.
-self-play-maze.png
+[](https://tayalmanan28.github.io/my_blogs/images/self-play-maze.png)
 Fig. 5. Illustration of the self-play setup when training two agents. The example task is <a href="https://github.com/facebook/MazeBase" target="_blank">MazeBase</a>: An agent is asked to reach a goal flag in a maze with a light switch, a key and a wall with a door. Toggling the key switch can open or close the door and Turning off the light makes only the glowing light switch available to the agent. (Image source: <a href="https://arxiv.org/abs/1703.05407" target="_blank">Sukhbaatar, et al. 2017</a>)
 Let us consider Alice and Bob as two separate copies for one RL agent trained in the same environment but with different brains. Each of them has independent parameters and loss objective. The self-play-driven training consists of two types of episodes:
 
@@ -140,7 +142,7 @@ $$
 \end{aligned}
 $$
 
-generative-goal-learning-algorithm.png
+[](https://tayalmanan28.github.io/my_blogs/images/generative-goal-learning-algorithm.png)
 Fig. 6. The algorithm of Generative Goal Learning. (Image source: (<a href="https://arxiv.org/abs/1705.06366" target="_blank">Florensa, et al. 2018</a>)
 Following the same idea, [Racaniere and Lampinen, et al. (2019)](https://arxiv.org/abs/1909.12892) designs a method to make the objectives of goal generator more sophisticated. Their method contains three components, same as generative goal learning above:
 
@@ -190,12 +192,12 @@ $$
 $$
 
 Their experiments showed complex environments require all three losses above. When the environment is changing between episodes, both the goal generator and the discriminator need to be conditioned on environmental observation to produce better results. If there is a desired goal distribution, an additional loss can be added to match a desired goal distribution using Wasserstein distance. Using this loss, the generator can push the solver toward mastering the desired tasks more efficiently.
-setter-judge-goal-generation.png
+[](https://tayalmanan28.github.io/my_blogs/images/setter-judge-goal-generation.png)
 Fig. 7. Training schematic for the (a) solver/policy, (b) judge/discriminator, and (c) setter/goal generator models. (Image source: <a href="https://arxiv.org/abs/1909.12892" target="_blank">Racaniere & Lampinen, et al., 2019</a>)
 ## Skill-Based Curriculum
 Another view is to decompose what an agent is able to complete into a variety of skills and each skill set could be mapped into a task. Let's imagine when an agent interacts with the environment in an unsupervised manner, is there a way to discover useful skills from such interaction and further build into the solutions for more complicated tasks through a curriculum?
 [Jabri, et al. (2019)](https://arxiv.org/abs/1912.04226) developed an automatic curriculum, **CARML** (short for "Curricula for Unsupervised Meta-Reinforcement Learning"), by modeling unsupervised trajectories into a latent skill space, with a focus on training [meta-RL](https://lilianweng.github.io/posts/2019-06-23-meta-rl/)( policies (i.e. can transfer to unseen tasks). The setting of training environments in CARML is similar to [DIAYN](https://lilianweng.github.io/posts/2019-06-23-meta-rl/#learning-with-random-rewards). Differently, CARML is trained on pixel-level observations but DIAYN operates on the true state space. An RL algorithm $\pi_\theta$, parameterized by $\theta$, is trained via unsupervised interaction formulated as a CMP combined with a learned reward function $r$. This setting naturally works for the meta-learning purpose, since a customized reward function can be given only at the test time.
-CARML.png
+[](https://tayalmanan28.github.io/my_blogs/images/CARML.png)
 Fig. 8. An illustration of CARML, containing two steps: (1) organizing experiential data into the latent skill space; (2) meta-training the policy with the reward function constructed from the learned skills. (Image source: [Jabri, et al 2019](https://arxiv.org/abs/1912.04226))
 CARML is framed as a [variational Expectation-Maximization (EM)](https://chrischoy.github.io/research/Expectation-Maximization-and-Variational-Inference/).
 (1) **E-Step**: This is the stage for organizing experiential data. Collected trajectories are modeled with a mixture of latent components forming the [basis](https://en.wikipedia.org/wiki/Basis_(linear_algebra)) of _skills_.
@@ -238,7 +240,7 @@ r_z(s)
 \end{aligned}
 $$
 
-CARML-algorithm.png
+[](https://tayalmanan28.github.io/my_blogs/images/CARML-algorithm.png)
 Fig. 9. The algorithm of CARML. (Image source: <a href="https://arxiv.org/abs/1912.04226" target="_blank">Jabri, et al 2019</a>)
 Learning a latent skill space can be done in different ways, such as in <a href="https://openreview.net/forum?id=rk07ZXZRb">Hausman, et al. 2018</a>. The goal of their approach is to learn a task-conditioned policy, $\pi(a \vert s, t^{(i)})$, where $t^{(i)}$ is from a discrete list of $N$ tasks, $\mathcal{T} = [t^{(1)}, \dots, t^{(N)}]$. However, rather than learning $N$ separate solutions, one per task, it would be nice to learn a latent skill space so that each task could be represented in a distribution over skills and thus skills are <em>reused between tasks</em>. The policy is defined as $\pi_\theta(a \vert s,t) = \int \pi_\theta(a \vert z,s,t) p_\phi(z \vert t)\mathrm{d}z$, where $\pi_\theta$ and $p_\phi$ are policy and embedding networks to learn, respectively. If $z$ is discrete, i.e. drawn from a set of $K$ skills, then the policy becomes a mixture of $K$ sub-policies. The policy training uses <a href="http://127.0.0.1:4000/lil-log/2018/04/07/policy-gradient-algorithms.html#sac">SAC</a> and the dependency on $z$ is introduced in the entropy term.</p>
 Curriculum through Distillation
@@ -255,13 +257,13 @@ A progressive network has the following structure:
 
 where $W^{(k)}_i$ is the weight matrix of the layer $i$ in the column $k$; $U_i^{(k:j)}, j &lt; k$ are the weight matrices for projecting the layer $i-1$ of the column $j$ to the layer $i$ of column $k$ ($ j &lt; k $). The above weights matrices should be learned. $f(.)$ is a non-linear activation function by choice.
 
-progressive-networks.png
+[](https://tayalmanan28.github.io/my_blogs/images/progressive-networks.png)
 Fig. 10. The progressive neural network architecture. (Image source: <a href="https://arxiv.org/abs/1610.04286" target="_blank">Rusu, et al. 2017</a>)
 The paper experimented with Atari games by training a progressive network on multiple games to check whether features learned in one game can transfer to another. That is indeed the case. Though interestingly, learning a high dependency on features in the previous columns does not always indicate good transfer performance on the new task. One hypothesis is that features learned from the old task might introduce biases into the new task, leading to policy getting trapped in a sub-optimal solution. Overall, the progressive network works better than only fine-tuning the top layer and can achieve similar transfer performance as fine-tuning the entire network.
 One use case for the progressive network is to do sim2real transfer (<a href="https://arxiv.org/abs/1610.04286">Rusu, et al. 2017</a>), in which the first column is trained in simulator with a lot of samples and then the additional columns (could be for different real-world tasks) are added and trained with a few real data samples.
 [Czarnecki, et al. (2018)](https://arxiv.org/abs/1806.01780) proposed another RL training framework, **Mix and Match** (short for **M&M**) to provide curriculum through coping knowledge between agents. Given a sequence of agents from simple to complex, $\pi_1, \dots, \pi_K$, each parameterized with some shared weights (e.g. by shared some lower common layers). M&M trains a mixture of agents, but only the final performance of the most complex one $\pi_K$ matters.
 In the meantime, M&M learns a categorical distribution $c \sim \text{Categorical}(1, \dots, K \vert \alpha)$ with [pmf](https://en.wikipedia.org/wiki/Probability_mass_function) $p(c=i) = \alpha_i$ probability to pick which policy to use at a given time. The mixed M&M policy is a simple weighted sum: $\pi_\text{mm}(a \vert s) = \sum_{i=1}^K \alpha_i \pi_i(a \vert s)$. Curriculum learning is realized by dynamically adjusting $\alpha_i$, from $\alpha_K=0$ to $\alpha_K=1$. The tuning of $\alpha$ can be manual or through [population-based training](https://lilianweng.github.io/posts/2019-09-05-evolution-strategies/#hyperparameter-tuning-pbt).
 To encourage cooperation rather than competition among policies, besides the RL loss $\mathcal{L}_\text{RL}$, another <a href="https://arxiv.org/abs/1511.06295">distillation</a>-like loss $\mathcal{L}_\text{mm}(\theta)$ is added. The knowledge transfer loss $\mathcal{L}_\text{mm}(\theta)$ measures the KL divergence between two policies, $\propto D_\text{KL}(\pi_{i}(. \vert s) | \pi_j(. \vert s))$ for $i &lt; j$. It encourages complex agents to match the simpler ones early on. The final loss is $\mathcal{L} = \mathcal{L}_\text{RL}(\theta \vert \pi_\text{mm}) + \lambda \mathcal{L}_\text{mm}(\theta)$.
-mix-and-match.png
+[](https://tayalmanan28.github.io/my_blogs/images/mix-and-match.png)
 Fig. 11. The Mix & Match architecture for training a mixture of policies.  (Image source:[Czarnecki, et al., 2018](https://arxiv.org/abs/1806.01780))
 
