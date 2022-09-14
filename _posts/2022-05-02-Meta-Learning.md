@@ -2,7 +2,7 @@
 toc: true
 layout: post
 description: Meta-Learning: Learning to Learn Fast.
-image: images/few-shot-classification.png
+image: images/meta-network.png
 categories: [Robotics]
 title: Meta-Learning
 ---
