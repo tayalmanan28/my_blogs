@@ -32,7 +32,7 @@ Fig. 2. Image classification accuracy on test image set (5 member classes of "sm
 [Zaremba and Sutskever (2014)](https://arxiv.org/abs/1410.4615) did an interesting experiment on training LSTM to predict the output of a short Python program for mathematical ops without actually executing the code. They found curriculum is necessary for learning. The program's complexity is controlled by two parameters, `length` ∈ [1, a] and `nesting`∈ [1, b]. Three strategies are considered:
 
 - Naive curriculum: increase `length` first until reaching `a`; then increase `nesting` and reset `length` to 1; repeat this process until both reach maximum.
-- Mix curriculum: sample <code>length</code> ~ [1, a] and `nesting` ~ [1, b]
+- Mix curriculum: sample `length` ~ [1, a] and `nesting` ~ [1, b]
 - Combined: naive + mix.
 
 They noticed that combined strategy always outperformed the naive curriculum and would generally (but not always) outperform the mix strategy &mdash; indicating that it is quite important to mix in easy tasks during training to _avoid forgetting_.
@@ -53,7 +53,7 @@ Two categories of learning signals have been considered in the paper:
 This framework of proposing curriculum automatically through another RL agent was formalized as _Teacher-Student Curriculum Learning_ (**TSCL**; [Matiisen, et al. 2017](https://arxiv.org/abs/1707.00183)). In TSCL, a _student_ is an RL agent working on actual tasks while a _teacher_ agent is a policy for selecting tasks. The student aims to master a complex task that might be hard to learn directly. To make this task easier to learn, we set up the teacher agent to guide the student's training process by picking proper sub-tasks.
 
 ![](https://tayalmanan28.github.io/my_blogs/images/teacher-student-curriculum.png)
-Fig. 3. The setup of teacher-student curriculum learning. (Image source: <a href="https://arxiv.org/abs/1707.00183" target="_blank">Matiisen, et al. 2017</a> + my annotation in red.)
+Fig. 3. The setup of teacher-student curriculum learning. (Image source: [Matiisen, et al. 2017](https://arxiv.org/abs/1707.00183) + my annotation in red.)
 In the process, the student should learn tasks which:
 
 - can help the student make fastest learning progress, or
@@ -80,14 +80,14 @@ Fig. 4. The algorithm of ALP-GMM (absolute learning progress Gaussian mixture mo
 Different from the teacher-student framework, two agents are doing very different things. The teacher learns to pick a task for the student without any knowledge of the actual task content. What if we want to make both train on the main task directly? How about even make them compete with each other?
 [Sukhbaatar, et al. (2017)](https://arxiv.org/abs/1703.05407) proposed a framework for automatic curriculum learning through **asymmetric self-play**. Two agents, Alice and Bob, play the same task with different goals: Alice challenges Bob to achieve the same state and Bob attempts to complete it as fast as he can.
 ![](https://tayalmanan28.github.io/my_blogs/images/self-play-maze.png)
-Fig. 5. Illustration of the self-play setup when training two agents. The example task is <a href="https://github.com/facebook/MazeBase" target="_blank">MazeBase</a>: An agent is asked to reach a goal flag in a maze with a light switch, a key and a wall with a door. Toggling the key switch can open or close the door and Turning off the light makes only the glowing light switch available to the agent. (Image source: <a href="https://arxiv.org/abs/1703.05407" target="_blank">Sukhbaatar, et al. 2017</a>)
+Fig. 5. Illustration of the self-play setup when training two agents. The example task is [MazeBase](https://github.com/facebook/MazeBase): An agent is asked to reach a goal flag in a maze with a light switch, a key and a wall with a door. Toggling the key switch can open or close the door and Turning off the light makes only the glowing light switch available to the agent. (Image source: [Sukhbaatar, et al. 2017](https://arxiv.org/abs/1703.05407))
 Let us consider Alice and Bob as two separate copies for one RL agent trained in the same environment but with different brains. Each of them has independent parameters and loss objective. The self-play-driven training consists of two types of episodes:
 
 - In the `self-play episode`, Alice alters the state from $s_0$ to $s_t$ and then Bob is asked to return the environment to its original state $s_0$ to get an internal reward.
 - In the `target task episode`, Bob receives an external reward if he visits the target flag.
 
 Note that since B has to repeat the actions between the same pair of $(s_0, s_t)$ of A, this framework only works in reversible or resettable environments.
-Alice should learn to push Bob out of his comfort zone, but not give him impossible tasks. Bob&rsquo;s reward is set as $R_B = -\gamma t_B$ and Alice&rsquo;s reward is $R_A = \gamma \max(0, t_B - t_A)$, where $t_B$ is the total time for B to complete the task, $t_A$ is the time until Alice performs the STOP action and $\gamma$ is a scalar constant to rescale the reward to be comparable with the external task reward. If B fails a task, $t_B = t_\max - t_A$.
+Alice should learn to push Bob out of his comfort zone, but not give him impossible tasks. Bob&rsquo;s reward is set as $R_B = -\gamma t_B$ and Alice&rsquo;s reward is $R_A = \gamma \max(0, t_B - t_A)$, where $t_B$ is the total time for B to complete the task, $t_A$ is the time until Alice performs the STOP action and $\gamma$ is a scalar constant to rescale the reward to be comparable with the external task reward. If B fails a task, $t_B = t_\max - t\_A$.
 Both policies are goal-conditioned. The losses imply:
 
 - B wants to finish a task asap.
@@ -99,7 +99,7 @@ The paradigm of A suggesting tasks and then B solving them does sound similar to
 
 ## Automatic Goal Generation
 Often RL policy needs to be able to perform over a set of tasks. The goal should be carefully chosen so that at every training stage, it would not be too hard or too easy for the current policy. A goal $g \in \mathcal{G}$ can be defined as a set of states $S^g$ and a goal is considered as achieved whenever an agent arrives at any of those states.
-The approach of Generative Goal Learning (<a href="https://arxiv.org/abs/1705.06366">Florensa, et al. 2018</a>) relies on a **Goal GAN** to generate desired goals automatically. In their experiment, the reward is very sparse, just a binary flag for whether a goal is achieved or not and the policy is conditioned on goal,
+The approach of Generative Goal Learning ([Florensa, et al. 2018](https://arxiv.org/abs/1705.06366)) relies on a **Goal GAN** to generate desired goals automatically. In their experiment, the reward is very sparse, just a binary flag for whether a goal is achieved or not and the policy is conditioned on goal,
 
 $$
 \begin{aligned}
@@ -111,11 +111,11 @@ $$
 Here $R^g(\pi)$ is the expected return, also equivalent to the success probability. Given sampled trajectories from the current policy, as long as any state belongs to the goal set, the return will be positive.
 Their approach iterates through 3 steps until the policy converges:
 
-- Label a set of goals based on whether they are at the appropriate level of difficulty for the current policy.</li>
+- Label a set of goals based on whether they are at the appropriate level of difficulty for the current policy.
 
 
-- The set of goals at the appropriate level of difficulty are named <strong>GOID</strong> (short for &ldquo;Goals of Intermediate Difficulty&rdquo;).<br/>$\text{GOID}\_i := \{g : R_\text{min} \leq R^g(\pi_i) \leq R_\text{max} \} \subseteq G$</li>
-- Here $R_\text{min}$ and $R_\text{max}$ can be interpreted as a minimum and maximum probability of reaching a goal over T time-steps.</li>
+- The set of goals at the appropriate level of difficulty are named **GOID** (short for "Goals of Intermediate Difficulty") $\text{GOID}\_i := \{g : R_\text{min} \leq R^g(\pi_i) \leq R_\text{max} \} \subseteq G$
+- Here $R_\text{min}$ and $R_\text{max}$ can be interpreted as a minimum and maximum probability of reaching a goal over T time-steps.
 
 - Train a Goal GAN model using labelled goals from step 1 to produce new goals
 - Use these new goals to train the policy, improving its coverage objective.
@@ -145,7 +145,7 @@ $$
 $$
 
 ![](https://tayalmanan28.github.io/my_blogs/images/generative-goal-learning-algorithm.png)
-Fig. 6. The algorithm of Generative Goal Learning. (Image source: (<a href="https://arxiv.org/abs/1705.06366" target="_blank">Florensa, et al. 2018</a>)
+Fig. 6. The algorithm of Generative Goal Learning. (Image source: ([Florensa, et al. 2018](https://arxiv.org/abs/1705.06366))
 Following the same idea, [Racaniere and Lampinen, et al. (2019)](https://arxiv.org/abs/1909.12892) designs a method to make the objectives of goal generator more sophisticated. Their method contains three components, same as generative goal learning above:
 
 - **Solver** /Policy $\pi$: In each episode, the solver gets a goal $g$ at the beginning and get a single binary reward $R^g$ at the end.
@@ -171,7 +171,7 @@ $$
 
 Goal **feasibility**: The proposed goal should be achievable by the current policy; that is, the level of difficulty should be appropriate.
 
-$\mathcal{L}_\text{feas}$ is the output probability by the judge model $D$ on the generated goal $G(z, f)$ should match the desired $f$.
+$\mathcal{L}\_\text{feas}$ is the output probability by the judge model $D$ on the generated goal $G(z, f)$ should match the desired $f$.
 
 $$
 \begin{align*}
@@ -195,7 +195,9 @@ $$
 
 Their experiments showed complex environments require all three losses above. When the environment is changing between episodes, both the goal generator and the discriminator need to be conditioned on environmental observation to produce better results. If there is a desired goal distribution, an additional loss can be added to match a desired goal distribution using Wasserstein distance. Using this loss, the generator can push the solver toward mastering the desired tasks more efficiently.
 ![](https://tayalmanan28.github.io/my_blogs/images/setter-judge-goal-generation.png)
-Fig. 7. Training schematic for the (a) solver/policy, (b) judge/discriminator, and (c) setter/goal generator models. (Image source: <a href="https://arxiv.org/abs/1909.12892" target="_blank">Racaniere & Lampinen, et al., 2019</a>)
+Fig. 7. Training schematic for the (a) solver/policy, (b) judge/discriminator, and (c) setter/goal generator models. (Image source: [Racaniere & Lampinen, et al., 2019](https://arxiv.org/abs/1909.12892))
+
+
 ## Skill-Based Curriculum
 Another view is to decompose what an agent is able to complete into a variety of skills and each skill set could be mapped into a task. Let's imagine when an agent interacts with the environment in an unsupervised manner, is there a way to discover useful skills from such interaction and further build into the solutions for more complicated tasks through a curriculum?
 [Jabri, et al. (2019)](https://arxiv.org/abs/1912.04226) developed an automatic curriculum, **CARML** (short for "Curricula for Unsupervised Meta-Reinforcement Learning"), by modeling unsupervised trajectories into a latent skill space, with a focus on training [meta-RL](https://lilianweng.github.io/posts/2019-06-23-meta-rl/)( policies (i.e. can transfer to unseen tasks). The setting of training environments in CARML is similar to [DIAYN](https://lilianweng.github.io/posts/2019-06-23-meta-rl/#learning-with-random-rewards). Differently, CARML is trained on pixel-level observations but DIAYN operates on the true state space. An RL algorithm $\pi_\theta$, parameterized by $\theta$, is trained via unsupervised interaction formulated as a CMP combined with a learned reward function $r$. This setting naturally works for the meta-learning purpose, since a customized reward function can be given only at the test time.
@@ -212,7 +214,7 @@ $$
 $$
 
 A simplifying assumption is made here to ignore the order of states in one trajectory.
-(2) <strong>M-Step</strong>: This is the stage for doing meta-RL training with $\pi_\theta$. The learned skill space is considered as a training task distribution. CARML is agnostic to the type of meta-RL algorithm for policy parameter updates.
+(2) **M-Step**: This is the stage for doing meta-RL training with $\pi_\theta$. The learned skill space is considered as a training task distribution. CARML is agnostic to the type of meta-RL algorithm for policy parameter updates.
 Given a trajectory $\tau$, it makes sense for the policy to maximize the mutual information between $\tau$ and $z$, $I(\tau;z) = H(\tau) - H(\tau \vert z)$, because:
 
 - maximizing $H(\tau)$ =&gt; diversity in the policy data space; expected to be large.
@@ -243,14 +245,14 @@ r_z(s)
 $$
 
 ![](https://tayalmanan28.github.io/my_blogs/images/CARML-algorithm.png)
-Fig. 9. The algorithm of CARML. (Image source: <a href="https://arxiv.org/abs/1912.04226" target="_blank">Jabri, et al 2019</a>)
-Learning a latent skill space can be done in different ways, such as in <a href="https://openreview.net/forum?id=rk07ZXZRb">Hausman, et al. 2018</a>. The goal of their approach is to learn a task-conditioned policy, $\pi(a \vert s, t^{(i)})$, where $t^{(i)}$ is from a discrete list of $N$ tasks, $\mathcal{T} = [t^{(1)}, \dots, t^{(N)}]$. However, rather than learning $N$ separate solutions, one per task, it would be nice to learn a latent skill space so that each task could be represented in a distribution over skills and thus skills are <em>reused between tasks</em>. The policy is defined as $\pi_\theta(a \vert s,t) = \int \pi_\theta(a \vert z,s,t) p_\phi(z \vert t)\mathrm{d}z$, where $\pi_\theta$ and $p_\phi$ are policy and embedding networks to learn, respectively. If $z$ is discrete, i.e. drawn from a set of $K$ skills, then the policy becomes a mixture of $K$ sub-policies. The policy training uses SAC and the dependency on $z$ is introduced in the entropy term.
+Fig. 9. The algorithm of CARML. (Image source: [Jabri, et al 2019](https://arxiv.org/abs/1912.04226))
+Learning a latent skill space can be done in different ways, such as in [Hausman, et al. 2018](https://openreview.net/forum?id=rk07ZXZRb). The goal of their approach is to learn a task-conditioned policy, $\pi(a \vert s, t^{(i)})$, where $t^{(i)}$ is from a discrete list of $N$ tasks, $\mathcal{T} = [t^{(1)}, \dots, t^{(N)}]$. However, rather than learning $N$ separate solutions, one per task, it would be nice to learn a latent skill space so that each task could be represented in a distribution over skills and thus skills are _reused between tasks_. The policy is defined as $\pi_\theta(a \vert s,t) = \int \pi_\theta(a \vert z,s,t) p_\phi(z \vert t)\mathrm{d}z$, where $\pi_\theta$ and $p_\phi$ are policy and embedding networks to learn, respectively. If $z$ is discrete, i.e. drawn from a set of $K$ skills, then the policy becomes a mixture of $K$ sub-policies. The policy training uses SAC and the dependency on $z$ is introduced in the entropy term.
 Curriculum through Distillation
 The motivation for the **progressive neural network** ([Rusu et al. 2016](https://arxiv.org/abs/1606.04671)) architecture is to efficiently transfer learned skills between different tasks and in the meantime avoid catastrophic forgetting. The curriculum is realized through a set of progressively stacked neural network towers (or "columns", as in the paper).
 A progressive network has the following structure:
 
-- It starts with a single column containing $L$ layers of neurons, in which the corresponding activation layers are labelled as $h^{(1)}_i, i=1, \dots, L$. We first train this single-column network for one task to convergence, achieving parameter config $\theta^{(1)}$.
-- Once switch to the next task, we need to add a new column to adapt to the new context while freezing $\theta^{(1)}$ to lock down the learned skills from the previous task. The new column has activation layers labelled as $h^{(2)}_i, i=1, \dots, L$, and parameters $\theta^{(2)}$.
+- It starts with a single column containing $L$ layers of neurons, in which the corresponding activation layers are labelled as $h^{(1)}\_i, i=1, \dots, L$. We first train this single-column network for one task to convergence, achieving parameter config $\theta^{(1)}$.
+- Once switch to the next task, we need to add a new column to adapt to the new context while freezing $\theta^{(1)}$ to lock down the learned skills from the previous task. The new column has activation layers labelled as $h^{(2)}\_i, i=1, \dots, L$, and parameters $\theta^{(2)}$.
 - Step 2 can be repeated with every new task. The $i$-th layer activation in the $k$-th column depends on the previous activation layers in all the existing columns:
 
  $$
@@ -260,9 +262,9 @@ A progressive network has the following structure:
 where $W^{(k)}\_i$ is the weight matrix of the layer $i$ in the column $k$; $U_i^{(k:j)}, j < k$ are the weight matrices for projecting the layer $i-1$ of the column $j$ to the layer $i$ of column $k$ ($ j < k $). The above weights matrices should be learned. $f(.)$ is a non-linear activation function by choice.
 
 ![](https://tayalmanan28.github.io/my_blogs/images/progressive-networks.png)
-Fig. 10. The progressive neural network architecture. (Image source: <a href="https://arxiv.org/abs/1610.04286" target="_blank">Rusu, et al. 2017</a>)
+Fig. 10. The progressive neural network architecture. (Image source: [Rusu, et al. 2017](https://arxiv.org/abs/1610.04286))
 The paper experimented with Atari games by training a progressive network on multiple games to check whether features learned in one game can transfer to another. That is indeed the case. Though interestingly, learning a high dependency on features in the previous columns does not always indicate good transfer performance on the new task. One hypothesis is that features learned from the old task might introduce biases into the new task, leading to policy getting trapped in a sub-optimal solution. Overall, the progressive network works better than only fine-tuning the top layer and can achieve similar transfer performance as fine-tuning the entire network.
-One use case for the progressive network is to do sim2real transfer (<a href="https://arxiv.org/abs/1610.04286">Rusu, et al. 2017</a>), in which the first column is trained in simulator with a lot of samples and then the additional columns (could be for different real-world tasks) are added and trained with a few real data samples.
+One use case for the progressive network is to do sim2real transfer ([Rusu, et al. 2017](https://arxiv.org/abs/1610.04286)), in which the first column is trained in simulator with a lot of samples and then the additional columns (could be for different real-world tasks) are added and trained with a few real data samples.
 [Czarnecki, et al. (2018)](https://arxiv.org/abs/1806.01780) proposed another RL training framework, **Mix and Match** (short for **M&M**) to provide curriculum through coping knowledge between agents. Given a sequence of agents from simple to complex, $\pi_1, \dots, \pi_K$, each parameterized with some shared weights (e.g. by shared some lower common layers). M&M trains a mixture of agents, but only the final performance of the most complex one $\pi_K$ matters.
 In the meantime, M&M learns a categorical distribution $c \sim \text{Categorical}(1, \dots, K \vert \alpha)$ with [pmf](https://en.wikipedia.org/wiki/Probability_mass_function) $p(c=i) = \alpha_i$ probability to pick which policy to use at a given time. The mixed M&M policy is a simple weighted sum: $\pi_\text{mm}(a \vert s) = \sum_{i=1}^K \alpha_i \pi_i(a \vert s)$. Curriculum learning is realized by dynamically adjusting $\alpha_i$, from $\alpha_K=0$ to $\alpha_K=1$. The tuning of $\alpha$ can be manual or through [population-based training](https://lilianweng.github.io/posts/2019-09-05-evolution-strategies/#hyperparameter-tuning-pbt).
 To encourage cooperation rather than competition among policies, besides the RL loss $\mathcal{L}\_\text{RL}$, another [distillation](https://arxiv.org/abs/1511.06295) -like loss $\mathcal{L}\_\text{mm}(\theta)$ is added. The knowledge transfer loss $\mathcal{L}\_\text{mm}(\theta)$ measures the KL divergence between two policies, $\propto D_\text{KL}(\pi_{i}(. \vert s) | \pi_j(. \vert s))$ for $i &lt; j$. It encourages complex agents to match the simpler ones early on. The final loss is $\mathcal{L} = \mathcal{L}\_\text{RL}(\theta \vert \pi_\text{mm}) + \lambda \mathcal{L}\_\text{mm}(\theta)$.
