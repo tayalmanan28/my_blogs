@@ -2,6 +2,7 @@
 toc: true
 layout: post
 description: A Blog on resources and roadmap for control theory.
+image: images/controls.jpg
 categories: [Control,Robotics]
 title: Resources and Roadmap for Control Theory
 ---
