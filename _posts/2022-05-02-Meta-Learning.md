@@ -1,10 +1,10 @@
 ---
 toc: true
 layout: post
-description: Describing a robot with URDF.
-image: images/urdf.png
+description: Meta Learning: Learning to Learn Fast.
+image: images/few-shot-classification.png
 categories: [Robotics]
-title: Introduction to URDF
+title: Meta Learning
 ---
 
 
