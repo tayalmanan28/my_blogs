@@ -254,10 +254,10 @@ A progressive network has the following structure:
 - Step 2 can be repeated with every new task. The $i$-th layer activation in the $k$-th column depends on the previous activation layers in all the existing columns:
 
  $$
- h^{(k)}_i = f(W^{(k)}_i h^{(k)}_{i-1} + \sum_{j < k} U_i^{(k:j)} h^{(j)}_{i-1})
+ h^{(k)}\_i = f(W^{(k)}_i h^{(k)}_{i-1} + \sum_{j < k} U_i^{(k:j)} h^{(j)}_{i-1})
  $$
 
-where $W^{(k)}_i$ is the weight matrix of the layer $i$ in the column $k$; $U_i^{(k:j)}, j &lt; k$ are the weight matrices for projecting the layer $i-1$ of the column $j$ to the layer $i$ of column $k$ ($ j &lt; k $). The above weights matrices should be learned. $f(.)$ is a non-linear activation function by choice.
+where $W^{(k)}\_i$ is the weight matrix of the layer $i$ in the column $k$; $U_i^{(k:j)}, j &lt; k$ are the weight matrices for projecting the layer $i-1$ of the column $j$ to the layer $i$ of column $k$ ($ j < k $). The above weights matrices should be learned. $f(.)$ is a non-linear activation function by choice.
 
 ![](https://tayalmanan28.github.io/my_blogs/images/progressive-networks.png)
 Fig. 10. The progressive neural network architecture. (Image source: <a href="https://arxiv.org/abs/1610.04286" target="_blank">Rusu, et al. 2017</a>)
