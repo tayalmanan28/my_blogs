@@ -25,7 +25,7 @@ In this post, we focus on the case when each desired task is a supervised learni
 
 A good meta-learning model should be trained over a variety of learning tasks and optimized for the best performance on a distribution of tasks, including potentially unseen tasks. Each task is associated with a dataset $\\mathcal{D}$, containing both feature vectors and true labels. The optimal model parameters are:
 
-$$ \\theta^\* = \\arg\\min\_\\theta \\mathbb{E}\_{\\mathcal{D}\\sim p(\\mathcal{D})} \[\\mathcal{L}\_\\theta(\\mathcal{D})\] $$
+$$ \theta^\* = \arg \min\_\theta \mathbb{E}\_{\mathcal{D}\sim p(\mathcal{D})} \[\mathcal{L}\_\theta(\mathcal{D})\] $$
 
 It looks very similar to a normal learning task, but _one dataset_ is considered as _one data sample_.
 
