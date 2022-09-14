@@ -341,7 +341,9 @@ Fig.9. The MetaNet architecture.
     for $i=1, \\dots, K$:
     
     a. The base learner outputs a probability distribution: $P(\\hat{y}\_i \\vert \\mathbf{x}\_i) = g\_\\phi(\\mathbf{x}\_i)$ and the loss can be cross-entropy or MSE: $\\mathcal{L}^\\text{task}\_i = y'\_i \\log g\_\\phi(\\mathbf{x}'\_i) + (1- y'\_i) \\log (1 - g\_\\phi(\\mathbf{x}'\_i))$
+    
     b. Extract meta information (loss gradients) of the task and compute the example-level fast weights: $\\phi\_i^+ = G\_v(\\nabla\_\\phi\\mathcal{L}^\\text{task}\_i)$
+    
     c. Then store $\\phi^+\_i$ into $i$-th location of the “value” memory $\\mathbf{M}$.  
             
     d. Encode the support sample into a task-specific input representation using both slow and fast weights: $r'\_i = f\_{\\theta, \\theta^+}(\\mathbf{x}'\_i)$
@@ -502,7 +504,7 @@ See the algorithm below: $\\text{SGD}(\\mathcal{L}\_{\\tau\_i}, \\theta, k)$ per
 
 Fig. 13. The batched version of Reptile algorithm. (Image source: [original paper](https://arxiv.org/abs/1803.02999))
 
-At a glance, the algorithm looks a lot like an ordinary SGD. However, because the task-specific optimization can take more than one step. it eventually makes $$\text{SGD}(\mathbb{E} \tau[\mathcal{L}{\tau}], \theta, k)$ diverge from $\mathbb{E}\tau [\text{SGD}(\mathcal{L}{\tau}, \theta, k)]$$ when k > 1.
+At a glance, the algorithm looks a lot like an ordinary SGD. However, because the task-specific optimization can take more than one step. it eventually makes $\text{SGD}(\mathbb{E} \tau[\mathcal{L}{\tau}], \theta, k)$ diverge from $\mathbb{E}\tau [\text{SGD}(\mathcal{L}{\tau}, \theta, k)]$ when k > 1.
 
 ### The Optimization Assumption
 
