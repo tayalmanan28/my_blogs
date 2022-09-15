@@ -81,8 +81,8 @@ There are three common approaches to meta-learning: metric-based, model-based, a
 
 |          | Model-based | Metric-based    | Optimization-based |
 |----------|-------------|-----------------|--------------------|
-| **Key idea** | RNN; memory | Metric learning | Gradient descent   |
-| **How $P\_\theta(y \vert \mathbf{x})$ is modeled?**      |   $f\_\theta(\mathbf{x}, S)$   | $\\sum\_{(\mathbf{x}\_i, y\_i) \in S} k\_\theta(\mathbf{x}, \mathbf{x}\_i)y\_i$ (\*) | $P\_{g\_\phi(\theta, S^L)}(y \vert \mathbf{x})$  |
+| **Key idea** | RNN; memory | Metric learning | Gradient descent |
+| **How $P\_\theta(y \vert \mathbf{x})$ is modeled?** |   $f\_\theta(\mathbf{x}, S)$   | $\\sum\_{(\mathbf{x}\_i, y\_i) \in S} k\_\theta(\mathbf{x}, \mathbf{x}\_i)y\_i$ (\*) | $P\_{g\_\phi(\theta, S^L)}(y \vert \mathbf{x})$  |
 
 
 (\*) $k\_\theta$ is a kernel function measuring the similarity between $\mathbf{x}\_i$ and $\mathbf{x}$.
