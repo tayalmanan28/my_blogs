@@ -251,27 +251,30 @@ window.onload = wrap_img;
 
 <p>There are three common approaches to meta-learning: metric-based, model-based, and optimization-based. Oriol Vinyals has a nice summary in his <a href="http://metalearning-symposium.ml/files/vinyals.pdf">talk</a> at meta-learning symposium @ NIPS 2018:</p>
 
-<p>Model-based</p>
-
-<p>Metric-based</p>
-
-<p>Optimization-based</p>
-
-<p><strong>Key idea</strong></p>
-
-<p>RNN; memory</p>
-
-<p>Metric learning</p>
-
-<p>Gradient descent</p>
-
-<p><strong>How $P_\theta(y \vert \mathbf{x})$ is modeled?</strong></p>
-
-<p>$f_\theta(\mathbf{x}, S)$</p>
-
-<p>$\sum_{(\mathbf{x}_i, y_i) \in S} k_\theta(\mathbf{x}, \mathbf{x}_i)y_i$ (*)</p>
-
-<p>$P_{g_\phi(\theta, S^L)}(y \vert \mathbf{x})$</p>
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Model-based</th>
+      <th>Metric-based</th>
+      <th>Optimization-based</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Key idea</strong></td>
+      <td>RNN; memory</td>
+      <td>Metric learning</td>
+      <td>Gradient descent</td>
+    </tr>
+    <tr>
+      <td><strong>How $P_\theta(y \vert \mathbf{x})$ is modeled?</strong></td>
+      <td>$f_\theta(\mathbf{x}, S)$</td>
+      <td>$\sum_{(\mathbf{x}_i, y_i) \in S} k_\theta(\mathbf{x}, \mathbf{x}_i)y_i$ (*)</td>
+      <td>$P_{g_\phi(\theta, S^L)}(y \vert \mathbf{x})$</td>
+    </tr>
+  </tbody>
+</table>
 
 <p>(*) $k_\theta$ is a kernel function measuring the similarity between $\mathbf{x}_i$ and $\mathbf{x}$.</p>
 
